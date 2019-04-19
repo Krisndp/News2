@@ -6,27 +6,30 @@ import { connect } from 'react-redux';
 class Part1 extends React.Component {
 
     render() {
+        const borderBottomColor = this.props.light ? 'white' : 'black';
+        const color = this.props.light ? 'white' : 'black';
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>Preferences</Text>
+            <View style={[styles.container,{borderBottomColor}]}>
+                <Text onPress={this.props.onPress} style={[styles.text,{color}]}>Preferences</Text>
             </View>
         )
     }
 }
-
-export default connect()(Part1);
+function mapSTP(state) {
+    //alert(JSON.stringify(state.changeLightReducer))
+    return { light: state.changeLightReducer.light }
+}
+export default connect(mapSTP)(Part1);
 
 const styles = StyleSheet.create({
     container: {
         flex: 0.7,
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
         justifyContent: 'center',
         //alignItems:'center',
         marginTop:5
     },
     text: {
-        color: 'black',
         fontSize: 25,
         fontWeight: '500'
     }

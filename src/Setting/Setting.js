@@ -5,38 +5,87 @@ import { connect } from 'react-redux';
 import Header from './Component/Header';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
+import axios from 'axios';
+import * as rssParser from 'react-native-rss-parser';
 
 class Setting extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            arr: []
+        }
+    }
+    componentWillMount = () => {
+        axios({
+            method: 'get',
+            url: 'https://vietnamnet.vn/rss/tin-noi-bat.rss',
+        })
+            .then(response => {
+                let data = rssParser.parse(response.data);
+                console.log(data._55.items);
+                return data._55.items;
+            })
+            .then(data => {
+                var arr = [];
+                for (i of data) {
+                    let description = i.description;
+                    var inital = description.indexOf('/>') + 2;
+                    var finish = description.indexOf('</');
+                    if (finish > inital) {
+                        var cut = description.substring(inital, finish);
+                    } else {
+                        var firstSymbol = description.indexOf('">')
+                        var cut = description.substring(firstSymbol, finish);
+                    };
+                    var one = cut.indexOf('<');
+                    var two = cut.indexOf('>') + 1;
+                    var des = cut.substring(one, two);
+                    var subtitle = cut.replace(des, '');
+                    let links = i.links[0].url;
+                    let title = i.title;
+                    var fisrtSrc = description.lastIndexOf('src=') + 5;
+                    var lastSrc = description.lastIndexOf('"');
+                    var illustration = description.substring(fisrtSrc, lastSrc);
+                    var obj = { title, links, subtitle, illustration };
+                    arr.push(obj);
+                }
+                console.log(arr)
+                return arr;
+            })
+            .then(arr => this.setState({ arr }))
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 
     renderItem({ item, index }, parallaxProps) {
         //alert(JSON.stringify(item))
+        const borderBottomColor = this.props.light ? 'white' : 'black';
+        const colorT = this.props.light ? 'white' : 'black';
         return (
             <View style={styles.carouselView}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', { item: item })} style={styles.carouselView}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail', { item })} style={styles.carouselView}>
                     <Image
                         source={{ uri: item.illustration }}
                         containerStyle={styles.containerStyle}
                         style={styles.containerStyle}
-                    // parallaxFactor={0.4}
-                    // {...parallaxProps}
-
                     />
                     <View style={styles.viewTotal}>
                         <View style={styles.view1}>
                             <Image source={{ uri: urlTriagle }} style={styles.icon} />
                         </View>
                         <View style={styles.view2}>
-                            <Text>The Vergel</Text>
+                            <Text style={{ color: '#848484' }}>The Vergel</Text>
                         </View>
                         <View style={styles.view3}>
-                            <Text>2h ago</Text>
+                            <Text style={{ color: "#848484" }}>2h ago</Text>
                         </View>
                     </View>
                     <View style={styles.view4}>
-                        <Text numberOfLines={2} style={styles.title}>{item.title}</Text>
+                        <Text numberOfLines={2} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                     </View>
                     <View style={styles.view5}>
-                        <Text numberOfLines={4} style={[styles.text, {color:'black'}]}>{item.subtitle}</Text>
+                        <Text numberOfLines={4} style={[styles.text, { color: colorT }]}>{item.subtitle}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -44,13 +93,14 @@ class Setting extends React.Component {
     }
 
     render() {
+        const backgroundColor = this.props.light ? "#170B3B" : 'white';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, { backgroundColor }]}>
                 <Header setting={() => this.props.navigation.navigate('Home')} />
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.props.allNewsReducer}
+                        data={this.state.arr}
                         renderItem={(item) => this.renderItem(item)}
                         sliderWidth={width}
                         itemWidth={0.8 * width}
@@ -65,8 +115,10 @@ class Setting extends React.Component {
     }
 }
 function mapSTP(state) {
-    //alert(JSON.stringify(state));
-    return { allNewsReducer: state.allNewsReducer }
+    return {
+        allNewsReducer: state.allNewsReducer,
+        light: state.changeLightReducer.light
+    }
 }
 
 export default connect(mapSTP)(Setting)
@@ -93,7 +145,6 @@ const styles = StyleSheet.create({
         flex: 15
     },
     title: {
-        color: 'black',
         fontSize: 25,
         fontWeight: 'bold'
     },

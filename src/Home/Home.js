@@ -13,10 +13,11 @@ class Home extends React.Component {
 
     }
     render() {
+        const backgroundColor = this.props.light ? "#170B3B" : 'white';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor:backgroundColor}]}>
                 <View style={styles.component}>
-                    <Part1 />
+                    <Part1 onPress = {()=>this.props.navigation.navigate('Setting')} />
                     <Part2 />
                     <Part3 />
                     <Part4 />
@@ -25,8 +26,11 @@ class Home extends React.Component {
         )
     }
 }
-
-export default connect()(Home)
+function mapSTP(state) {
+    //alert(JSON.stringify(state.changeLightReducer))
+    return { light: state.changeLightReducer.light }
+}
+export default connect(mapSTP)(Home)
 
 const styles = StyleSheet.create({
     container: {

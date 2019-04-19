@@ -8,19 +8,22 @@ const showAllImage = "https://img.icons8.com/ios-glyphs/50/000000/chevron-right.
 class Part3 extends React.Component {
 
     render() {
+        const borderBottomColor = this.props.light ? 'white' : 'black';
+        const colorText = this.props.light ? 'white' : 'black';
+        const tintColorImage = this.props.light ? 'white' : 'black';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{borderBottomColor}]}>
                 <View style={styles.component1}>
                     <View style={styles.component11}>
-                        <Text style={styles.text}>Favorites</Text>
+                        <Text style={[styles.text,{color:colorText}]}>Favorites</Text>
                     </View>
                     <View style={styles.component12}>
-                        <Image style={styles.image} source={{ uri: showAllImage }} />
+                        <Image style={[styles.image,{tintColor:tintColorImage}]} source={{ uri: showAllImage }} />
                     </View>
                 </View>
                 <View style={styles.Component2}>
                     <FlatList
-                        data={this.props.favoriteReducer}
+                        data={this.props.favoriteReducer.slice(0,3)}
                         renderItem={({ item }) =>
                             <FlatListItem
                                 item={item}
@@ -39,7 +42,9 @@ class Part3 extends React.Component {
 }
 function mapSTP(state) {
     //alert(JSON.stringify(state.categoriesReducer));
-    return { favoriteReducer: state.favoriteReducer }
+    return { 
+        favoriteReducer: state.favoriteReducer,
+        light: state.changeLightReducer.light }
 }
 
 
@@ -49,14 +54,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 3,
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
         justifyContent: 'center',
         flexDirection: 'column',
         //alignItems:'center',
         marginTop: 5,
     },
     text: {
-        color: 'black',
         fontSize: 18
     },
     component1: {

@@ -6,21 +6,26 @@ import { connect } from 'react-redux';
 class Part4 extends React.Component {
 
     render() {
+        const borderBottomColor = this.props.light ? 'white' : 'black';
+        const colorText = this.props.light ? 'white' : 'black';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{borderBottomColor}]}>
                 <View style={styles.component1}>
                     <Image style={styles.image} source={{ uri: this.props.icon }} />
                 </View>
                 <View style={styles.component2}>
-                    <Text style={styles.text}>{this.props.title}</Text>
+                    <Text style={[styles.text,{color:colorText}]}>{this.props.title}</Text>
                 </View>
                 {this.props.right}
             </View>
         )
     }
 }
+function mapSTP(state) {
+    return { light: state.changeLightReducer.light }
+}
 
-export default connect()(Part4);
+export default connect(mapSTP)(Part4);
 
 const styles = StyleSheet.create({
     container: {
@@ -49,7 +54,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     text: {
-        color: 'black',
         fontSize: 15
     },
     component31:{

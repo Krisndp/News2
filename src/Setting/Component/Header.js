@@ -1,28 +1,36 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet,TouchableOpacity } from 'react-native';
+import {connect} from 'react-redux';
 const urlSetting = "https://img.icons8.com/ios/50/000000/settings.png";
 const urlMenu = "https://img.icons8.com/ios/50/000000/menu-filled.png";
-export default class Header extends React.Component {
+class Header extends React.Component {
+    
     render() {
+        const colorT = this.props.light ? 'white' : 'black';
+        const tintColorT = this.props.light ? 'white' : 'black';
         return (
             <View style={styles.header}>
                 <View style={styles.view1}>
-                    <Image source={{ uri: urlMenu }} style={styles.image} />
+                    <Image source={{ uri: urlMenu }} style={[styles.image,{tintColor:tintColorT}]} />
                 </View>
 
                 <View style={styles.view2}>
-                    <Text style={styles.text}>All News</Text>
+                    <Text style={[styles.text,{color:colorT}]}>All News</Text>
                 </View>
                 <View style={styles.view1}>
                     <TouchableOpacity onPress={this.props.setting} style={styles.view1}>
-                        <Image source={{ uri: urlSetting }} style={styles.image} />
+                        <Image source={{ uri: urlSetting }} style={[styles.image,{tintColor:tintColorT}]} />
                     </TouchableOpacity>
                 </View>
             </View>
         )
     }
 }
-
+function mapSTP(state) {
+    //alert(JSON.stringify(state.changeLightReducer))
+    return { light: state.changeLightReducer.light }
+}
+export default connect(mapSTP)(Header)
 const styles = StyleSheet.create({
     header: {
         flex: 1,

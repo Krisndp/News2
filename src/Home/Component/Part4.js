@@ -3,7 +3,7 @@ import { View, Text, Dimensions, StyleSheet, Image, Switch, Alert } from 'react-
 const { width, height } = Dimensions.get('window')
 import { connect } from 'react-redux';
 import Item4 from './Item4';
-//import { change_light } from '...\redux/action/actionCreator'
+import {change_light } from '../../../redux/action/actionCreator';
 
 class Part4 extends React.Component {
     constructor(props) {
@@ -12,11 +12,13 @@ class Part4 extends React.Component {
     }
 
     right1 = () => {
+        const colorText = this.props.changeLightReducer.light ? 'white' : 'black';
+        const tintColorImage = this.props.changeLightReducer.light ? 'white' : 'black';
         return (
             <View style={styles.component3}>
-                <Text style={[styles.text, { marginRight: 3 }]}>English</Text>
+                <Text style={[styles.text, { marginRight: 3, color:colorText }]}>English</Text>
                 <View style={styles.component31}>
-                    <Image style={styles.image} source={{ uri: 'https://img.icons8.com/ios/50/000000/expand-arrow-filled.png' }} />
+                    <Image style={[styles.image,{tintColor:tintColorImage}]} source={{ uri: 'https://img.icons8.com/ios/50/000000/expand-arrow-filled.png' }} />
                 </View>
             </View>
 
@@ -39,9 +41,9 @@ class Part4 extends React.Component {
         return (
             <View style={styles.component3}>
                 <Switch
-                    style={{}}
-                    onValueChange={() => this.change_light}
-                    value={this.props.changeLightReducer.notification}
+                    //style={{}}
+                    onValueChange={() => this.props.change_light()}
+                    value={this.props.changeLightReducer.light}
                 />
             </View>
         )
@@ -55,8 +57,9 @@ class Part4 extends React.Component {
     }
 
     render() {
+        const borderBottomColor = this.props.light ? 'white' : 'black';
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{borderBottomColor}]}>
                 <Item4
                     title={'Language'}
                     icon={'https://img.icons8.com/ios-glyphs/30/000000/give-way.png'}
@@ -82,11 +85,10 @@ class Part4 extends React.Component {
     }
 }
 function mapSTP(state) {
-    alert(JSON.stringify(state.changeLightReducer))
     return { changeLightReducer: state.changeLightReducer }
 }
 
-export default connect(mapSTP)(Part4);
+export default connect(mapSTP,{change_light})(Part4);
 
 const styles = StyleSheet.create({
     container: {
@@ -107,7 +109,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     text: {
-        color: 'grey',
         fontSize: 15
     },
     component31: {
