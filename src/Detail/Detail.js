@@ -16,6 +16,10 @@ class Detail extends React.Component {
         };
     }
 
+    componentWillMount = () => {
+        //this.getInfoNews(this.props.navigation.navigate('item').links)
+    }
+
     render() {
         const scrollY = Animated.add(
             this.state.scrollY,

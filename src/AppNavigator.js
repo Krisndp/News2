@@ -2,6 +2,7 @@ import { createAppContainer, createStackNavigator} from 'react-navigation'; // V
 import Home from './Home/Home';
 import Detail from './Detail/Detail';
 import Setting from './Setting/Setting';
+import WebViewDetail from './WebView/WebView';
 
 
 const AppNavigator = createStackNavigator({
@@ -17,8 +18,12 @@ const AppNavigator = createStackNavigator({
     screen: Setting,
     navigationOptions: ({header: null})
   },
+  WebView:{
+    screen: WebViewDetail,
+    navigationOptions: ({header: null})
+  }
 }, {
-    initialRouteName: 'Setting',
+    initialRouteName: 'WebView',
 });
 
 export default createAppContainer(AppNavigator);

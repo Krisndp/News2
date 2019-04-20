@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
 import axios from 'axios';
 import * as rssParser from 'react-native-rss-parser';
-
+import {get_all_news} from '../../redux/action/actionCreator';
 class Setting extends React.Component {
     constructor(props) {
         super(props);
@@ -16,47 +16,50 @@ class Setting extends React.Component {
         }
     }
     componentWillMount = () => {
-        axios({
-            method: 'get',
-            url: 'https://vietnamnet.vn/rss/tin-noi-bat.rss',
-        })
-            .then(response => {
-                let data = rssParser.parse(response.data);
-                console.log(data._55.items);
-                return data._55.items;
-            })
-            .then(data => {
-                var arr = [];
-                for (i of data) {
-                    let description = i.description;
-                    var inital = description.indexOf('/>') + 2;
-                    var finish = description.indexOf('</');
-                    if (finish > inital) {
-                        var cut = description.substring(inital, finish);
-                    } else {
-                        var firstSymbol = description.indexOf('">')
-                        var cut = description.substring(firstSymbol, finish);
-                    };
-                    var one = cut.indexOf('<');
-                    var two = cut.indexOf('>') + 1;
-                    var des = cut.substring(one, two);
-                    var subtitle = cut.replace(des, '');
-                    let links = i.links[0].url;
-                    let title = i.title;
-                    var fisrtSrc = description.lastIndexOf('src=') + 5;
-                    var lastSrc = description.lastIndexOf('"');
-                    var illustration = description.substring(fisrtSrc, lastSrc);
-                    var obj = { title, links, subtitle, illustration };
-                    arr.push(obj);
-                }
-                console.log(arr)
-                return arr;
-            })
-            .then(arr => this.setState({ arr }))
-            .catch(function (error) {
-                console.log(error);
-            })
+        this.props.get_all_news()
     }
+    // rssParser = () => {
+    //     axios({
+    //         method: 'get',
+    //         url: 'https://vietnamnet.vn/rss/tin-noi-bat.rss',
+    //     })
+    //         .then(response => {
+    //             let data = rssParser.parse(response.data);
+    //             console.log(data._55.items);
+    //             return data._55.items;
+    //         })
+    //         .then(data => {
+    //             var arr = [];
+    //             for (i of data) {
+    //                 let description = i.description;
+    //                 var inital = description.indexOf('/>') + 2;
+    //                 var finish = description.indexOf('</');
+    //                 if (finish > inital) {
+    //                     var cut = description.substring(inital, finish);
+    //                 } else {
+    //                     var firstSymbol = description.indexOf('">')
+    //                     var cut = description.substring(firstSymbol, finish);
+    //                 };
+    //                 var one = cut.indexOf('<');
+    //                 var two = cut.indexOf('>') + 1;
+    //                 var des = cut.substring(one, two);
+    //                 var subtitle = cut.replace(des, '');
+    //                 let links = i.links[0].url;
+    //                 let title = i.title;
+    //                 var fisrtSrc = description.lastIndexOf('src=') + 5;
+    //                 var lastSrc = description.lastIndexOf('"');
+    //                 var illustration = description.substring(fisrtSrc, lastSrc);
+    //                 var obj = { title, links, subtitle, illustration };
+    //                 arr.push(obj);
+    //             }
+    //             console.log(arr)
+    //             return arr;
+    //         })
+    //         .then(arr => this.setState({ arr }))
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // }
 
     renderItem({ item, index }, parallaxProps) {
         //alert(JSON.stringify(item))
@@ -100,7 +103,7 @@ class Setting extends React.Component {
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.state.arr}
+                        data={this.props.allNewsReducer}
                         renderItem={(item) => this.renderItem(item)}
                         sliderWidth={width}
                         itemWidth={0.8 * width}
@@ -115,13 +118,14 @@ class Setting extends React.Component {
     }
 }
 function mapSTP(state) {
+    //alert(JSON.stringify(state.allNewsReducer));
     return {
         allNewsReducer: state.allNewsReducer,
         light: state.changeLightReducer.light
     }
 }
 
-export default connect(mapSTP)(Setting)
+export default connect(mapSTP,{get_all_news})(Setting)
 
 const styles = StyleSheet.create({
     container: {
