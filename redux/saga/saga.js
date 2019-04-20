@@ -1,7 +1,8 @@
 import {watchGetNews} from './AllNewsSaga';
-import {call, all} from 'redux-saga/effects';
+import {watchGetInfoNews} from './watchGetInfoNews';
+import {fork} from 'redux-saga/effects';
 
 export default function* saga(){
-    yield call(watchGetNews);
-    //yield all(watchGetInfoNews);
+    yield fork(watchGetNews);
+    yield fork(watchGetInfoNews);
 }

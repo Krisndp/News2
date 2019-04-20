@@ -16,8 +16,8 @@ export function get_succes() {
     return { type: GET_SUCCES, receivedNews }
 }
 
-export function get_info_news(){
-    return{ type: GET_INFO_NEWS }
+export function get_info_news(linkNews){
+    return{ type: GET_INFO_NEWS, linkNews }
 }
 
 export function get_success_info() {

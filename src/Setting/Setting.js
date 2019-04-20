@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
 import axios from 'axios';
 import * as rssParser from 'react-native-rss-parser';
-import {get_all_news} from '../../redux/action/actionCreator';
+import {get_all_news, get_info_news} from '../../redux/action/actionCreator';
 class Setting extends React.Component {
     constructor(props) {
         super(props);
@@ -61,13 +61,16 @@ class Setting extends React.Component {
     //         })
     // }
 
+    CarouselTouch = (item) => {
+        this.props.navigation.navigate('Detail', { item });
+    }
     renderItem({ item, index }, parallaxProps) {
         //alert(JSON.stringify(item))
         const borderBottomColor = this.props.light ? 'white' : 'black';
         const colorT = this.props.light ? 'white' : 'black';
         return (
             <View style={styles.carouselView}>
-                <TouchableOpacity activeOpacity={1} onPress={() => this.props.navigation.navigate('Detail', { item })} style={styles.carouselView}>
+                <TouchableOpacity activeOpacity={1} onPress={() => this.CarouselTouch(item)} style={styles.carouselView}>
                     <Image
                         source={{ uri: item.illustration }}
                         containerStyle={styles.containerStyle}
@@ -125,7 +128,7 @@ function mapSTP(state) {
     }
 }
 
-export default connect(mapSTP,{get_all_news})(Setting)
+export default connect(mapSTP,{get_all_news, get_info_news})(Setting)
 
 const styles = StyleSheet.create({
     container: {

@@ -132,7 +132,7 @@ class Detail extends React.Component {
 
 function mapSTP(state) {
     return {
-        light: state.changeLightReducer.light
+        light: state.changeLightReducer.light,
     }
 }
 
