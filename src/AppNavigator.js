@@ -3,6 +3,7 @@ import Home from './Home/Home';
 import Detail from './Detail/Detail';
 import Setting from './Setting/Setting';
 import WebViewDetail from './WebView/WebView';
+import HTMLViews from './HtmlView/HtmlView';
 
 
 const AppNavigator = createStackNavigator({
@@ -21,9 +22,13 @@ const AppNavigator = createStackNavigator({
   WebView:{
     screen: WebViewDetail,
     navigationOptions: ({header: null})
+  },
+  HTMLViews: {
+    screen: HTMLViews,
+    navigationOptions: ({header: null})
   }
 }, {
-    initialRouteName: 'WebView',
+    initialRouteName: 'Setting',
 });
 
 export default createAppContainer(AppNavigator);

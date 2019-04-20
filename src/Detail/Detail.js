@@ -84,7 +84,7 @@ class Detail extends React.Component {
                     }
 
                 >
-                    <Item item={item} onPress={() => this.props.navigation.navigate('Setting')} />
+                    <Item item={item} onPress={() => this.props.navigation.pop()} />
                 </Animated.ScrollView>
                 <Animated.View
                     pointerEvents="none"
