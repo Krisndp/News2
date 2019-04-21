@@ -2,16 +2,16 @@ import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 
 function* getInfoNewsFromAPI(urlInfoNews) {
-    console.log(urlInfoNews.linkNews)
+    //console.log(urlInfoNews.linkNews)
     const response = yield axios({
         method: 'get',
         url: urlInfoNews.linkNews
     })
         .then(res => {
-            console.log("res.data");
+            //console.log("res.data");
             const data = res.data;
             const $ = cheerio.load(data);
-            console.log($(".ArticleDetail").html());
+            //console.log($(".ArticleDetail").html());
             $('.article-relate').remove();
             $('.inner-article').remove();
             $('.ArticleDateTime').remove();
@@ -22,12 +22,14 @@ function* getInfoNewsFromAPI(urlInfoNews) {
             $('.italic').remove();
             $('.bold').remove();
             $('.subtitle').remove();
+            $("h1").css("background-color", "blue");
+            //alert( $('.ArticleDate  right').text());
             return $(".ArticleDetail").html();
         })
         .catch(err => console.log('err'))
-       return response
+    return response
 }
 
 export const API = {
-   getInfoNewsFromAPI
+    getInfoNewsFromAPI
 }

@@ -68,6 +68,8 @@ const styles = StyleSheet.create({
     },
     Component2: {
         flex: 3,
+        width,
+        marginLeft: -20
     },
     image: {
         width: 20,

@@ -4,8 +4,9 @@ import { WebView } from 'react-native-webview';
 import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 const {width, height} = Dimensions.get('window');
+import {connect} from 'react-redux';
 
-export default class WebViewDetail extends React.Component {
+class WebViewDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,9 +33,11 @@ export default class WebViewDetail extends React.Component {
     render() {
         console.log(this.state.uri)
         return (
-            <WebView source = {{html: this.state.uri}} style = {{width}} >
+            <View style = {{}}>
 
-            </WebView>
+            </View>
         )
     }
 }
+
+export default connect()(WebViewDetail)

@@ -4,3 +4,4 @@ export const GET_FAIL = "get fail";
 export const GET_SUCCES = "get succes";
 export const GET_INFO_NEWS = "get info news";
 export const GET_SUCCES_INFO = "get success info";
+export const CHANGE_CHOOSE_TOPIC = "change choose topic";

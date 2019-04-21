@@ -1,15 +1,19 @@
 import axios from 'axios';
 import * as rssParser from 'react-native-rss-parser';
-const newsUrl = 'https://vietnamnet.vn/rss/tin-noi-bat.rss';
+//const newsUrl = 'https://vietnamnet.vn/rss/phap-luat.rss';
 
-function* getNewsFromAPI() {
+function* getNewsFromAPI(linkNewsTopic) {
+    //alert(JSON.stringify(linkNewsTopic))
     const response = yield axios({
         method: 'get',
-        url: newsUrl,
+        url: linkNewsTopic,
+        // params: {
+        //     query: 'khắc'
+        // }
     })
         .then(response => {
             let data = rssParser.parse(response.data);
-            console.log(data._55.items);
+            //console.log(data._55.items);
             return data._55.items;
         })
         .then(data => {
@@ -31,16 +35,16 @@ function* getNewsFromAPI() {
                 let links = i.links[0].url;
                 let title = i.title;
                 var fisrtSrc = description.lastIndexOf('src=') + 5;
-                var lastSrc = description.lastIndexOf('"');
+                var lastSrc = description.lastIndexOf('w=220');
                 var illustration = description.substring(fisrtSrc, lastSrc);
                 var obj = { title, links, subtitle, illustration };
                 arr.push(obj);
             }
-            console.log(arr)
+            //console.log(arr)
             return arr;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
         })
 
         return response

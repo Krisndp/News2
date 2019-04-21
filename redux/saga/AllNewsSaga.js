@@ -2,10 +2,10 @@ import { GET_ALL_NEWS, GET_FAIL, GET_SUCCES } from '../action/actionType';
 import { put, takeLatest } from 'redux-saga/effects';
 import { API } from './API';
 
-function* getNews() {
+function* getNews(linkNewsTopic) {
     try {
-        const receivedNews = yield API.getNewsFromAPI();
-        yield console.log(receivedNews)
+        const receivedNews = yield API.getNewsFromAPI(linkNewsTopic.linkNewsTopic);
+        //yield console.log(receivedNews)
         yield put({ type: GET_SUCCES, receivedNews })
     } catch {
         yield put({ type: GET_FAIL })

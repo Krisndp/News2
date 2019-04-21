@@ -18,7 +18,7 @@ class Item extends React.Component {
     }
 
     componentWillMount = () => {
-        this.props.get_info_news(this.props.item.links)
+        this.props.get_info_news(this.props.item.links, this.props.light)
     }
     render() {
         const item = this.props.item;
@@ -43,7 +43,7 @@ class Item extends React.Component {
                     <Text onPress={this.props.onPress} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                 </View>
                 <View style={styles.view5} activeOpacity={1}>
-                    <HTMLView value={this.props.info} stylesheet={{ color: 'red' }} />
+                    <HTMLView value={this.props.info} stylesheet={{ color: 'red' }} textComponentProps={{color:'red'}}/>
                 </View>
             </View>
         )

@@ -5,7 +5,7 @@ import { API } from './apiInfoNews';
 function* getInfoNews(linkNews) {
     try {
         const receivedInfoNews = yield API.getInfoNewsFromAPI(linkNews);
-        yield console.log(receivedInfoNews)
+        //yield console.log(receivedInfoNews)
         yield put({ type: GET_SUCCES_INFO, receivedInfoNews })
     } catch {
         yield put({ type: GET_FAIL })

@@ -15,13 +15,13 @@ class FlatlistItem extends React.Component {
         const tintColor = this.props.tintColor;
         //alert(JSON.stringify(item));
         return (
-            <View style={[styles.container, {backgroundColor }]}>
-                <TouchableOpacity style={styles.touchableOpacity}>
+            <View style={[styles.container, { backgroundColor }]}>
+                <TouchableOpacity activeOpacity={1} style={styles.touchableOpacity}>
                     <View style={styles.view2}>
                         <Image source={{ uri: item.image }} style={[styles.image, { tintColor }]} />
                     </View>
                     <View style={styles.view1}>
-                        <Text style={[styles.text,{color}]}>{item.name}</Text>
+                        <Text style={[styles.text, { color }]}>{item.name}</Text>
                     </View>
 
                 </TouchableOpacity>
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
         width: width / 2.8,
         height: width / 3.5,
         borderRadius: 10,
-        marginRight: 10,
+        marginLeft: 10,
+        marginRight: 2,
         borderWidth: 1,
         borderColor: '#D8D8D8'
     },

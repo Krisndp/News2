@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Animated, Platform, StatusBar, RefreshControl } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Animated, Platform, StatusBar, RefreshControl,TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 const { width, height } = Dimensions.get('window');
 import Item from './Component/Item';
 const HEADER_MAX_HEIGHT = height * 0.6;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
+const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 85;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 class Detail extends React.Component {
@@ -40,7 +40,11 @@ class Detail extends React.Component {
             outputRange: [0, 100],
             extrapolate: 'clamp',
         });
-
+        const titleOpacity = scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+            outputRange: [0, 1, 1],
+            extrapolate: 'clamp',
+        });
         const titleScale = scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
             outputRange: [0, 1, 1],
@@ -82,9 +86,8 @@ class Detail extends React.Component {
                             }}
                         />
                     }
-
                 >
-                    <Item item={item} onPress={() => this.props.navigation.pop()} />
+                    <Item item={item}  />
                 </Animated.ScrollView>
                 <Animated.View
                     pointerEvents="none"
@@ -112,14 +115,18 @@ class Detail extends React.Component {
                                 { scale: titleScale },
                                 { translateX: titleTranslate },
                             ],
+                            opacity: titleOpacity,
                         },
                     ]}
                 >
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', padding: 5, margin: 10 }}>
-                        <View style={{ flex: 7, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.pop()} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight:5 }}>
+                            <Image source={{ uri: "https://img.icons8.com/windows/32/000000/undo.png" }} style={[styles.image, { tintColor: tintColorT }]} />
+                        </TouchableOpacity>
+                        <View style={{ flex: 9, justifyContent: 'center', alignItems: 'center' }}>
                             <Text numberOfLines={1} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                         </View>
-                        <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 20 }}>
+                        <View style={{ flex: 1.5, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5 }}>
                             <Image source={{ uri: "https://img.icons8.com/ios-glyphs/30/000000/share-rounded.png" }} style={[styles.image, { tintColor: tintColorT }]} />
                             <Image source={{ uri: "https://img.icons8.com/ios/50/000000/bookmark-ribbon.png" }} style={[styles.image, { tintColor: tintColorT }]} />
                         </View>
@@ -168,6 +175,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         overflow: 'hidden',
         height: HEADER_MAX_HEIGHT,
+        justifyContent: 'center',
+        alignItems:'center',
     },
     backgroundImage: {
         position: 'absolute',
@@ -183,11 +192,13 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 28 : 38,
         height: 40,
         justifyContent: 'center',
+        alignItems:'center',
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         flexDirection: 'row',
+        padding:10
     },
     title: {
         backgroundColor: 'transparent',
@@ -198,6 +209,6 @@ const styles = StyleSheet.create({
         width: width / 14,
         height: width / 14,
         tintColor: '#A4A4A4',
-        marginRight: 20
+        marginRight: 10
     },
 })

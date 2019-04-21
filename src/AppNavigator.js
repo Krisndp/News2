@@ -1,34 +1,39 @@
-import { createAppContainer, createStackNavigator} from 'react-navigation'; // Version can be specified in package.json
+import { createAppContainer, createStackNavigator, createDrawerNavigator } from 'react-navigation'; // Version can be specified in package.json
 import Home from './Home/Home';
 import Detail from './Detail/Detail';
 import Setting from './Setting/Setting';
 import WebViewDetail from './WebView/WebView';
-import HTMLViews from './HtmlView/HtmlView';
+import Drawer from './Drawer/Drawer';
+import React from 'react';
+import { Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
 
 
 const AppNavigator = createStackNavigator({
   Home: {
     screen: Home,
-    navigationOptions: ({header: null})
+    navigationOptions: ({ header: null })
   },
   Detail: {
     screen: Detail,
-    navigationOptions: ({header: null})
+    navigationOptions: ({ header: null })
   },
   Setting: {
     screen: Setting,
-    navigationOptions: ({header: null})
+    navigationOptions: ({ header: null })
   },
-  WebView:{
-    screen: WebViewDetail,
-    navigationOptions: ({header: null})
-  },
-  HTMLViews: {
-    screen: HTMLViews,
-    navigationOptions: ({header: null})
-  }
 }, {
     initialRouteName: 'Setting',
-});
+  });
 
-export default createAppContainer(AppNavigator);
+
+const Drawers = createDrawerNavigator({
+  Tabs: {
+    screen: AppNavigator
+  }
+}, {
+    drawerWidth: width / 2,
+    drawerPosition: 'left',
+    contentComponent: props => <Drawer {...props} />
+  });
+export default createAppContainer(Drawers);

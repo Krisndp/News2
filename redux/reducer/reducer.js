@@ -5,6 +5,7 @@ import favoriteReducer from './favoriteReducer';
 import allNewsReducer from './allNewsReducer';
 import changeLightReducer from './changeLightReducer';
 import infoNewsReducer from './infoNewsReducer';
+import categoriesNewsReducer from './categoriesNewsReducer'
 
 const reducer = combineReducers({
     state,
@@ -12,7 +13,8 @@ const reducer = combineReducers({
     favoriteReducer,
     allNewsReducer,
     changeLightReducer,
-    infoNewsReducer
+    infoNewsReducer,
+    categoriesNewsReducer
 })
 
 export default reducer;

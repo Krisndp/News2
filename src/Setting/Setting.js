@@ -12,11 +12,11 @@ class Setting extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            arr: []
         }
     }
     componentWillMount = () => {
-        this.props.get_all_news()
+        this.props.get_all_news(this.props.linkNewsTopic)
+        //alert(this.props.linkNewsTopic)
     }
     // rssParser = () => {
     //     axios({
@@ -65,7 +65,6 @@ class Setting extends React.Component {
         this.props.navigation.navigate('Detail', { item });
     }
     renderItem({ item, index }, parallaxProps) {
-        //alert(JSON.stringify(item))
         const borderBottomColor = this.props.light ? 'white' : 'black';
         const colorT = this.props.light ? 'white' : 'black';
         return (
@@ -102,7 +101,7 @@ class Setting extends React.Component {
         const backgroundColor = this.props.light ? "#170B3B" : 'white';
         return (
             <View style={[styles.container, { backgroundColor }]}>
-                <Header setting={() => this.props.navigation.navigate('Home')} />
+                <Header setting={() => this.props.navigation.navigate('Home')} drawer = {()=> this.props.navigation.toggleDrawer()}/>
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
@@ -121,8 +120,9 @@ class Setting extends React.Component {
     }
 }
 function mapSTP(state) {
-    //alert(JSON.stringify(state.allNewsReducer));
+    //alert(JSON.stringify(state.categoriesNewsReducer.choosedTopic[0].link));
     return {
+        linkNewsTopic: state.categoriesNewsReducer.choosedTopic[0].link,
         allNewsReducer: state.allNewsReducer,
         light: state.changeLightReducer.light
     }
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         //       backgroundColor:'#0A0A2A'
     },
     main: {
-        flex: 9
+        flex: 11
     },
     carouselView: {
         flex: 1,
