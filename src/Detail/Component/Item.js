@@ -36,14 +36,14 @@ class Item extends React.Component {
                         <Text style={{ color: '#848484' }}>The Vergel</Text>
                     </View>
                     <View style={styles.view3}>
-                        <Text style={{ color: '#848484' }}>2h ago</Text>
+                        <Text style={{ color: '#848484' }}>{item.published}</Text>
                     </View>
                 </View>
                 <View style={styles.view4}>
                     <Text onPress={this.props.onPress} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                 </View>
                 <View style={styles.view5} activeOpacity={1}>
-                    <HTMLView value={this.props.info} stylesheet={{ color: 'red' }} textComponentProps={{color:'red'}}/>
+                    <HTMLView value={this.props.info} stylesheet={{ color: 'red' }} textComponentProps={{ color: 'red' }} />
                 </View>
             </View>
         )
@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     view2: {
-        flex: 6,
+        flex: 3,
         justifyContent: 'center'
     },
     view3: {
-        flex: 3,
+        flex: 6,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },

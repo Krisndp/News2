@@ -4,38 +4,109 @@ const defaultState = {
         {
             id: 1,
             nameTopic: "Tin nổi bật",
-            color: "red",
+            color: "#01DF01",
             link: "http://vietnamnet.vn/rss/tin-noi-bat.rss",
             onClick: true
         },
         {
             id: 2,
             nameTopic: "Pháp luật",
-            color: "red",
+            color: "#FFFF00",
             link: "	http://vietnamnet.vn/rss/phap-luat.rss",
             onClick: false
         },
         {
             id: 3,
             nameTopic: "Công nghệ",
-            color: "red",
+            color: "#BDBDBD",
             link: "	http://vietnamnet.vn/rss/cong-nghe.rss",
             onClick: false
         },
         {
             id: 4,
             nameTopic: "Kinh doanh",
-            color: "red",
+            color: "#FA58AC",
             link: "http://vietnamnet.vn/rss/kinh-doanh.rss",
             onClick: false
         },
         {
             id: 5,
             nameTopic: "Giáo dục",
-            color: "red",
+            color: "#00BFFF",
             link: "http://vietnamnet.vn/rss/giao-duc.rss",
             onClick: false
-        }
+        },
+        {
+            id: 6,
+            nameTopic: "Thời sự",
+            color: "#F3F781",
+            link: "	http://vietnamnet.vn/rss/thoi-su.rss",
+            onClick: false
+        },
+        {
+            id: 7,
+            nameTopic: "Giải trí",
+            color: "#FA58D0",
+            link: "http://vietnamnet.vn/rss/giai-tri.rss",
+            onClick: false
+        },
+        {
+            id: 8,
+            nameTopic: "Sức khỏe",
+            color: "#2EFE2E",
+            link: "http://vietnamnet.vn/rss/suc-khoe.rss",
+            onClick: false
+        },
+        {
+            id: 9,
+            nameTopic: "Thể thao",
+            color: "#0040FF",
+            link: "http://vietnamnet.vn/rss/the-thao.rss",
+            onClick: false
+        },
+        {
+            id: 10,
+            nameTopic: "Thế giới",
+            color: "#F7BE81",
+            link: "http://vietnamnet.vn/rss/the-gioi.rss",
+            onClick: false
+        },
+        {
+            id: 11,
+            nameTopic: "Bất động sản",
+            color: "#FF00FF",
+            link: "http://vietnamnet.vn/rss/bat-dong-san.rss",
+            onClick: false
+        },
+        {
+            id: 12,
+            nameTopic: "Bạn đọc",
+            color: "#F4FA58",
+            link: "http://vietnamnet.vn/rss/ban-doc.rss",
+            onClick: false
+        },
+        {
+            id: 13,
+            nameTopic: "Tin mới nóng",
+            color: "#4B8A08",
+            link: "http://vietnamnet.vn/rss/tin-moi-nong.rss",
+            onClick: false
+        },
+        {
+            id: 14,
+            nameTopic: "Tuần Việt Nam",
+            color: "#0404B4",
+            link: "http://vietnamnet.vn/rss/tuanvietnam.rss",
+            onClick: false
+        },
+        {
+            id: 15,
+            nameTopic: "Góc nhìn thẳng",
+            color: "#FF4000",
+            link: "http://vietnamnet.vn/rss/goc-nhin-thang.rss",
+            onClick: false
+        },
+
     ],
     choosedTopic: {}
 }

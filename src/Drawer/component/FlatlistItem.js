@@ -14,14 +14,20 @@ class FlatlistItem extends React.Component {
     }
     render() {
         const item = this.props.item;
+        const colorText = this.props.light ? 'white' : 'black';
         return (
             <View style={{ margin: 10, flexDirection: 'row', borderLeftColor: item.color, borderLeftWidth: 3 }}>
                 <TouchableOpacity onPress={this.props.onPress} style={{ flex: 9, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <Text style={{ margin: 10, color: 'black', fontSize: width / 25 }}>{item.nameTopic}</Text>
+                    <Text style={{ margin: 10, color: colorText, fontSize: width / 25 }}>{item.nameTopic}</Text>
                 </TouchableOpacity>
-                {item.onClick ? this.choosed() : <View style = {{flex:1}}/>}
+                {item.onClick ? this.choosed() : <View style={{ flex: 1 }} />}
             </View>
         )
     }
 }
-export default connect()(FlatlistItem)
+function mapSTP(state) {
+    return {
+        light: state.changeLightReducer.light
+    }
+}
+export default connect(mapSTP)(FlatlistItem)

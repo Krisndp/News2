@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import Header from './Component/Header';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
-import axios from 'axios';
-import * as rssParser from 'react-native-rss-parser';
+
 import {get_all_news, get_info_news} from '../../redux/action/actionCreator';
 class Setting extends React.Component {
     constructor(props) {
@@ -16,50 +15,7 @@ class Setting extends React.Component {
     }
     componentWillMount = () => {
         this.props.get_all_news(this.props.linkNewsTopic)
-        //alert(this.props.linkNewsTopic)
     }
-    // rssParser = () => {
-    //     axios({
-    //         method: 'get',
-    //         url: 'https://vietnamnet.vn/rss/tin-noi-bat.rss',
-    //     })
-    //         .then(response => {
-    //             let data = rssParser.parse(response.data);
-    //             console.log(data._55.items);
-    //             return data._55.items;
-    //         })
-    //         .then(data => {
-    //             var arr = [];
-    //             for (i of data) {
-    //                 let description = i.description;
-    //                 var inital = description.indexOf('/>') + 2;
-    //                 var finish = description.indexOf('</');
-    //                 if (finish > inital) {
-    //                     var cut = description.substring(inital, finish);
-    //                 } else {
-    //                     var firstSymbol = description.indexOf('">')
-    //                     var cut = description.substring(firstSymbol, finish);
-    //                 };
-    //                 var one = cut.indexOf('<');
-    //                 var two = cut.indexOf('>') + 1;
-    //                 var des = cut.substring(one, two);
-    //                 var subtitle = cut.replace(des, '');
-    //                 let links = i.links[0].url;
-    //                 let title = i.title;
-    //                 var fisrtSrc = description.lastIndexOf('src=') + 5;
-    //                 var lastSrc = description.lastIndexOf('"');
-    //                 var illustration = description.substring(fisrtSrc, lastSrc);
-    //                 var obj = { title, links, subtitle, illustration };
-    //                 arr.push(obj);
-    //             }
-    //             console.log(arr)
-    //             return arr;
-    //         })
-    //         .then(arr => this.setState({ arr }))
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // }
 
     CarouselTouch = (item) => {
         this.props.navigation.navigate('Detail', { item });
@@ -83,7 +39,7 @@ class Setting extends React.Component {
                             <Text style={{ color: '#848484' }}>The Vergel</Text>
                         </View>
                         <View style={styles.view3}>
-                            <Text style={{ color: "#848484" }}>2h ago</Text>
+                            <Text style={{ color: "#848484" }}>{item.published}</Text>
                         </View>
                     </View>
                     <View style={styles.view4}>
@@ -98,10 +54,12 @@ class Setting extends React.Component {
     }
 
     render() {
+        const goHome = () => this.props.navigation.navigate('Home');
         const backgroundColor = this.props.light ? "#170B3B" : 'white';
+        const toggleDrawer = () => this.props.navigation.toggleDrawer();
         return (
             <View style={[styles.container, { backgroundColor }]}>
-                <Header setting={() => this.props.navigation.navigate('Home')} drawer = {()=> this.props.navigation.toggleDrawer()}/>
+                <Header setting={goHome} drawer = {toggleDrawer}/>
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
@@ -169,11 +127,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     view2: {
-        flex: 6,
+        flex: 3,
         justifyContent: 'center'
     },
     view3: {
-        flex: 3,
+        flex: 6,
         justifyContent: 'flex-end',
         alignItems: 'center'
     },

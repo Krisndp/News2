@@ -4,7 +4,7 @@ import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 import { connect } from 'react-redux';
 import FlatlistItem from './component/FlatlistItem';
-import {change_choose_topic, get_all_news} from '../../redux/action/actionCreator';
+import { change_choose_topic, get_all_news } from '../../redux/action/actionCreator';
 const { width, height } = Dimensions.get('window');
 
 class Drawer extends React.Component {
@@ -23,22 +23,22 @@ class Drawer extends React.Component {
     }
     render() {
         const allTopic = this.props.categoriesNewsReducer.allTopic;
+        const backgroundColor = this.props.light ? '#170B3B' : 'white';
         return (
-            <View style={{ flex: 1, backgroundColor: 'white', marginTop: 50, }}>
+            <View style={{ flex: 1, paddingTop: 10, backgroundColor }}>
                 <FlatList
                     data={allTopic}
-                    renderItem={({ item, index }) => <FlatlistItem onPress={() => this.onPress(item.id)} item={item}/>}
-                    keyExtractor = {item=> item.id}
+                    renderItem={({ item, index }) => <FlatlistItem onPress={() => this.onPress(item.id)} item={item} />}
+                    keyExtractor={item => item.id}
                 />
             </View>
         )
     }
 }
 function mapSTP(state) {
-    //alert(JSON.stringify(state.categoriesNewsReducer.choosedTopic[0].link,));
-    return { 
+    return {
         categoriesNewsReducer: state.categoriesNewsReducer,
-        //linkNewsTopic: state.categoriesNewsReducer.choosedTopic[0].link,
-     }
+        light: state.changeLightReducer.light
+    }
 }
-export default connect(mapSTP,{change_choose_topic,get_all_news})(Drawer)
+export default connect(mapSTP, { change_choose_topic, get_all_news })(Drawer)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Animated, Platform, StatusBar, RefreshControl,TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Animated, Platform, StatusBar, RefreshControl, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 const { width, height } = Dimensions.get('window');
 import Item from './Component/Item';
@@ -87,7 +87,7 @@ class Detail extends React.Component {
                         />
                     }
                 >
-                    <Item item={item}  />
+                    <Item item={item} />
                 </Animated.ScrollView>
                 <Animated.View
                     pointerEvents="none"
@@ -119,16 +119,16 @@ class Detail extends React.Component {
                         },
                     ]}
                 >
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.pop()} style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 10, marginRight:5 }}>
-                            <Image source={{ uri: "https://img.icons8.com/windows/32/000000/undo.png" }} style={[styles.image, { tintColor: tintColorT }]} />
+                    <View style={styles.viewHeader}>
+                        <TouchableOpacity onPress={() => this.props.navigation.pop()} style={styles.backToHome}>
+                            <Image source={{ uri: "https://img.icons8.com/material-rounded/24/000000/left.png" }} style={[styles.image, { tintColor: tintColorT }]} />
                         </TouchableOpacity>
-                        <View style={{ flex: 9, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={styles.titleView}>
                             <Text numberOfLines={1} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                         </View>
-                        <View style={{ flex: 1.5, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft: 5 }}>
+                        <View style={styles.viewIcon}>
                             <Image source={{ uri: "https://img.icons8.com/ios-glyphs/30/000000/share-rounded.png" }} style={[styles.image, { tintColor: tintColorT }]} />
-                            <Image source={{ uri: "https://img.icons8.com/ios/50/000000/bookmark-ribbon.png" }} style={[styles.image, { tintColor: tintColorT }]} />
+                            <Image source={{ uri: "https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon.png" }} style={[styles.image, { tintColor: tintColorT }]} />
                         </View>
                     </View>
                 </Animated.View>
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         height: HEADER_MAX_HEIGHT,
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
     },
     backgroundImage: {
         position: 'absolute',
@@ -192,13 +192,13 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? 28 : 38,
         height: 40,
         justifyContent: 'center',
-        alignItems:'center',
+        alignItems: 'center',
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         flexDirection: 'row',
-        padding:10
+        padding: 10
     },
     title: {
         backgroundColor: 'transparent',
@@ -211,4 +211,29 @@ const styles = StyleSheet.create({
         tintColor: '#A4A4A4',
         marginRight: 10
     },
+    viewHeader: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    backToHome: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 5
+    },
+    titleView: {
+        flex: 9,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    viewIcon: {
+        flex: 1.5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10
+    }
 })
