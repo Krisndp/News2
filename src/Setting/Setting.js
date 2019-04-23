@@ -3,10 +3,11 @@ import { View, Text, Alert, Image, StyleSheet, Dimensions, TouchableOpacity, Tou
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { connect } from 'react-redux';
 import Header from './Component/Header';
+//import { insertRecentlyRead, deleteAll } from '../../realmDB/allShema';
+import realm from '../../realmDB/allShema';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
-
-import {get_all_news, get_info_news} from '../../redux/action/actionCreator';
+import { get_all_news, get_info_news } from '../../redux/action/actionCreator';
 class Setting extends React.Component {
     constructor(props) {
         super(props);
@@ -14,11 +15,25 @@ class Setting extends React.Component {
         }
     }
     componentWillMount = () => {
+        // deleteAll()
+        //     .then()
+        //     .catch(e => console.log(e));
         this.props.get_all_news(this.props.linkNewsTopic)
     }
 
     CarouselTouch = (item) => {
         this.props.navigation.navigate('Detail', { item });
+        // const recentlyRead = {
+        //     id: Math.floor(Date.now() / 1000),
+        //     title: item.title,
+        //     illustration: item.illustration,
+        //     links: item.links,
+        //     subtitle: item.subtitle,
+        //     //published: Date.now(item.published),
+        // }
+        // insertRecentlyRead(recentlyRead)
+        //     .then(() => alert(recentlyRead))
+        //     .catch(e => alert(e))
     }
     renderItem({ item, index }, parallaxProps) {
         const borderBottomColor = this.props.light ? 'white' : 'black';
@@ -59,7 +74,7 @@ class Setting extends React.Component {
         const toggleDrawer = () => this.props.navigation.toggleDrawer();
         return (
             <View style={[styles.container, { backgroundColor }]}>
-                <Header setting={goHome} drawer = {toggleDrawer}/>
+                <Header setting={goHome} drawer={toggleDrawer} />
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
@@ -86,7 +101,7 @@ function mapSTP(state) {
     }
 }
 
-export default connect(mapSTP,{get_all_news, get_info_news})(Setting)
+export default connect(mapSTP, { get_all_news, get_info_news })(Setting)
 
 const styles = StyleSheet.create({
     container: {
