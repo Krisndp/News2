@@ -3,6 +3,8 @@ import { View, Text, Alert, Image, StyleSheet, Dimensions, TouchableOpacity, Tou
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { connect } from 'react-redux';
 import Header from './Component/Header';
+import {insertRecentlyRead} from '../../realmDB/allShema';
+import realm from '../../realmDB/allShema';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
 
@@ -19,6 +21,17 @@ class Setting extends React.Component {
 
     CarouselTouch = (item) => {
         this.props.navigation.navigate('Detail', { item });
+        const recentlyRead = {
+            id: Math.floor(Date.now() / 1000),
+            title: item.title,
+            illustration: item.illustration,
+            links: item.links,
+            subtitle: item.subtitle,
+            //published: item.published,
+        }
+        insertRecentlyRead(recentlyRead)
+            .then(() => console.log(recentlyRead))
+            .catch(e => alert(e))
     }
     renderItem({ item, index }, parallaxProps) {
         const borderBottomColor = this.props.light ? 'white' : 'black';
