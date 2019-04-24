@@ -7,3 +7,4 @@ export const GET_SUCCES_INFO = "get success info";
 export const CHANGE_CHOOSE_TOPIC = "change choose topic";
 export const GET_DATA_FROM_REALM = "get_data_from_realm";
 export const GET_DATA_FROM_REALM_SAVED = "get_data_from_realm_saved";
+export const GET_DATA_FROM_REALM_FAVORITE = "get_data_from_realm_favorite";

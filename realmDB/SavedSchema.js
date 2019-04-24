@@ -49,16 +49,6 @@ export const deleteAllSaved = () => new Promise((resolve, reject) => {
     }).catch(e => reject(e))
 })
 
-// export const updateWatchedNews = (NewsUpdate) => new Promise((resolve, reject) => {
-//     Realm.open(databaseOptions).then(realm => {
-//         realm.write(() => {
-//             let updateNewsCurently = realm.objectForPrimaryKey(SAVED, NewsUpdate.id);
-//             updateNewsCurently.published = NewsUpdate.published
-//             resolve()
-//         })
-//     }).catch(e => reject(e))
-// })
-
 export const deleteNewsSaved = (NewsId) => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {

@@ -8,6 +8,8 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import ConnectHistory from './ConnectHistory/ConnectHistory';
 import Saved from './Saved/Saved';
+import Favorite from './Favorite/Favorite';
+import AllFavorite from './AllFavorite/AllFavorite';
 const { width } = Dimensions.get('window');
 
 
@@ -31,9 +33,17 @@ const AppNavigator = createStackNavigator({
   Saved: {
     screen: Saved,
     navigationOptions: ({ header: null })
+  },
+  Favorite: {
+    screen: Favorite,
+    navigationOptions: ({ header: null })
+  },
+  AllFavorite: {
+    screen: AllFavorite,
+    navigationOptions: ({ header: null })
   }
 }, {
-    initialRouteName: 'Setting',
+    initialRouteName: 'AllFavorite',
   });
 
 
