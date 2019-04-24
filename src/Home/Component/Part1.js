@@ -12,7 +12,7 @@ class Part1 extends React.Component {
         return (
             <View style={[styles.container, { borderBottomColor }]}>
                 <TouchableOpacity onPress={this.props.onPress} style={styles.backToHome}>
-                    <Image source={{ uri: 'https://img.icons8.com/material-rounded/24/000000/left.png' }} style={[styles.icon,{tintColor:tintColorImage}]} />
+                    <Image source={{ uri: 'https://img.icons8.com/ios/50/000000/less-than.png' }} style={[styles.icon,{tintColor:tintColorImage}]} />
                 </TouchableOpacity>
                 <View style={styles.Prefer}>
                     <Text style={[styles.text, { color }]}>Preferences</Text>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         flex: 9
     },
     icon: {
-        width: 30,
-        height: 30
+        width: 20,
+        height: 20
     }
 })

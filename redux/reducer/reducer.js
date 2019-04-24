@@ -5,7 +5,8 @@ import favoriteReducer from './favoriteReducer';
 import allNewsReducer from './allNewsReducer';
 import changeLightReducer from './changeLightReducer';
 import infoNewsReducer from './infoNewsReducer';
-import categoriesNewsReducer from './categoriesNewsReducer'
+import categoriesNewsReducer from './categoriesNewsReducer';
+import RealmDataRecently from './RealmDataRecently';
 
 const reducer = combineReducers({
     state,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
     allNewsReducer,
     changeLightReducer,
     infoNewsReducer,
-    categoriesNewsReducer
+    categoriesNewsReducer,
+    RealmDataRecently,
 })
 
 export default reducer;

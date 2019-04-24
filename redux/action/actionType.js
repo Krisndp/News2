@@ -5,3 +5,4 @@ export const GET_SUCCES = "get succes";
 export const GET_INFO_NEWS = "get info news";
 export const GET_SUCCES_INFO = "get success info";
 export const CHANGE_CHOOSE_TOPIC = "change choose topic";
+export const GET_DATA_FROM_REALM = "get_data_from_realm";

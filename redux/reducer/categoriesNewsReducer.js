@@ -6,7 +6,7 @@ const defaultState = {
             nameTopic: "Tin nổi bật",
             color: "#01DF01",
             link: "http://vietnamnet.vn/rss/tin-noi-bat.rss",
-            onClick: true
+            onClick: false
         },
         {
             id: 2,
@@ -34,7 +34,7 @@ const defaultState = {
             nameTopic: "Giáo dục",
             color: "#00BFFF",
             link: "http://vietnamnet.vn/rss/giao-duc.rss",
-            onClick: false
+            onClick: true
         },
         {
             id: 6,

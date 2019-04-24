@@ -13,7 +13,7 @@ function* getNewsFromAPI(linkNewsTopic) {
     })
         .then(response => {
             let data = rssParser.parse(response.data);
-            console.log(data._55);
+            //console.log(data._55);
             return data._55.items;
         })
         .then(data => {
@@ -34,15 +34,15 @@ function* getNewsFromAPI(linkNewsTopic) {
                 var subtitle = cut.replace(des, '');
                 let links = i.links[0].url;
                 let title = i.title;
-                let published = i.published;
+                let publishe = i.published;
                 var fisrtSrc = description.lastIndexOf('src=') + 5;
                 var lastSrc = description.lastIndexOf('w=220');
                 var illustration = description.substring(fisrtSrc, lastSrc);
 
-                var obj = { title, links, subtitle, illustration, published };
+                var obj = { title, links, subtitle, illustration, publishe };
                 arr.push(obj);
             }
-            //console.log(arr)
+            console.log(arr)
             return arr;
         })
         .catch(function (error) {

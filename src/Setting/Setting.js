@@ -3,10 +3,12 @@ import { View, Text, Alert, Image, StyleSheet, Dimensions, TouchableOpacity, Tou
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { connect } from 'react-redux';
 import Header from './Component/Header';
+import { getDataFromRealm } from '../../redux/action/actionCreator';
+import { querryAll, updateWatchedNews } from '../../realmDB/allShema';
+import { insertRecentlyRead } from '../../realmDB/allShema';
+import { get_all_news, get_info_news } from '../../redux/action/actionCreator';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
-
-import {get_all_news, get_info_news} from '../../redux/action/actionCreator';
 class Setting extends React.Component {
     constructor(props) {
         super(props);
@@ -15,10 +17,49 @@ class Setting extends React.Component {
     }
     componentWillMount = () => {
         this.props.get_all_news(this.props.linkNewsTopic)
+        querryAll().then(allNewsList => {
+            const NewsSort = allNewsList.sort(function (a, b) { return b.published - a.published });
+            this.props.getDataFromRealm(NewsSort)
+        })
     }
 
     CarouselTouch = (item) => {
         this.props.navigation.navigate('Detail', { item });
+        this.addToRealm(item)
+    }
+
+    addToRealm = async (item) => {
+        const RealmDataRecently = this.props.RealmDataRecently;
+        for (var i of RealmDataRecently) {
+            if (item.links == i.links) {
+                var alived = true;
+                const NewsUpdate = {
+                    id: i.id,
+                    published: new Date()
+                };
+                updateWatchedNews(NewsUpdate)
+                    .then(querryAll().then(allNewsList => {
+                        const NewsSort = allNewsList.sort(function (a, b) { return b.published - a.published });
+                        this.props.getDataFromRealm(NewsSort)
+                    })).catch(e => console.log(e))
+                break;
+            }
+        }
+        if (alived == null) {
+            const recentlyRead = {
+                id: Math.floor(Date.now() / 1000),
+                title: item.title,
+                illustration: item.illustration,
+                links: item.links,
+                subtitle: item.subtitle,
+                published: new Date(),
+            }
+            insertRecentlyRead(recentlyRead)
+                .then(e => querryAll().then(allNewsList => {
+                    this.props.getDataFromRealm(allNewsList)
+                }))
+                .catch(e => alert(e))
+        } else { console.log('haha') }
     }
     renderItem({ item, index }, parallaxProps) {
         const borderBottomColor = this.props.light ? 'white' : 'black';
@@ -39,7 +80,7 @@ class Setting extends React.Component {
                             <Text style={{ color: '#848484' }}>The Vergel</Text>
                         </View>
                         <View style={styles.view3}>
-                            <Text style={{ color: "#848484" }}>{item.published}</Text>
+                            <Text style={{ color: "#848484" }}>{item.publishe}</Text>
                         </View>
                     </View>
                     <View style={styles.view4}>
@@ -59,7 +100,7 @@ class Setting extends React.Component {
         const toggleDrawer = () => this.props.navigation.toggleDrawer();
         return (
             <View style={[styles.container, { backgroundColor }]}>
-                <Header setting={goHome} drawer = {toggleDrawer}/>
+                <Header setting={goHome} drawer={toggleDrawer} />
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
@@ -78,15 +119,17 @@ class Setting extends React.Component {
     }
 }
 function mapSTP(state) {
-    //alert(JSON.stringify(state.categoriesNewsReducer.choosedTopic[0].link));
+    console.log(state.RealmDataRecently)
     return {
+        RealmDataRecently: state.RealmDataRecently,
         linkNewsTopic: state.categoriesNewsReducer.choosedTopic[0].link,
         allNewsReducer: state.allNewsReducer,
-        light: state.changeLightReducer.light
+        light: state.changeLightReducer.light,
+
     }
 }
 
-export default connect(mapSTP,{get_all_news, get_info_news})(Setting)
+export default connect(mapSTP, { get_all_news, get_info_news, getDataFromRealm })(Setting)
 
 const styles = StyleSheet.create({
     container: {

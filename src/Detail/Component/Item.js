@@ -36,7 +36,7 @@ class Item extends React.Component {
                         <Text style={{ color: '#848484' }}>The Vergel</Text>
                     </View>
                     <View style={styles.view3}>
-                        <Text style={{ color: '#848484' }}>{item.published}</Text>
+                        <Text style={{ color: '#848484' }}>{item.publishe}</Text>
                     </View>
                 </View>
                 <View style={styles.view4}>

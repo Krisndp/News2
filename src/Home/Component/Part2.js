@@ -15,7 +15,7 @@ class Part2 extends React.Component {
             <View style={[styles.container,{borderBottomColor}]}>
                 <View style={styles.component1}>
                     <View style={styles.component11}>
-                        <Text style={[styles.text,{color:colorText}]}>Categories</Text>
+                        <Text onPress = {this.props.ConnectHistory} style={[styles.text,{color:colorText}]}>Categories</Text>
                     </View>
                     <View style={styles.component12}>
                         <Image style={[styles.image,{tintColor: tintColorImage}]} source={{ uri: showAllImage }} />

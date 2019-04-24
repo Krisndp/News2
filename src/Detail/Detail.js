@@ -121,7 +121,7 @@ class Detail extends React.Component {
                 >
                     <View style={styles.viewHeader}>
                         <TouchableOpacity onPress={() => this.props.navigation.pop()} style={styles.backToHome}>
-                            <Image source={{ uri: "https://img.icons8.com/material-rounded/24/000000/left.png" }} style={[styles.image, { tintColor: tintColorT }]} />
+                            <Image source={{ uri: "https://img.icons8.com/ios/50/000000/less-than.png" }} style={[styles.image, { tintColor: tintColorT }]} />
                         </TouchableOpacity>
                         <View style={styles.titleView}>
                             <Text numberOfLines={1} style={[styles.title, { color: colorT }]}>{item.title}</Text>
@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
     },
     image: {
-        width: width / 14,
-        height: width / 14,
+        width: 20,
+        height: 20,
         tintColor: '#A4A4A4',
         marginRight: 10
     },
