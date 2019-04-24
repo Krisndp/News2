@@ -1,6 +1,6 @@
 import { CHANGE_LIGHT } from '../action/actionType';
 
-const defaultState = { light: false, notification: false };
+const defaultState = { light: true, notification: false };
 
 const changeLightReducer = (state = defaultState, action) => {
     switch (action.type) {

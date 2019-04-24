@@ -75,4 +75,13 @@ export const updateWatchedNews = (NewsUpdate) => new Promise((resolve, reject) =
     }).catch(e => reject(e))
 })
 
+export const deleteNews = (NewsId) => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            let deleteNewsCurently = realm.objectForPrimaryKey(RECENTLY_READ, NewsId);
+            realm.delete(deleteNewsCurently);
+            resolve();
+        })
+    }).catch(e => reject(e))
+})
 export default new Realm(databaseOptions);

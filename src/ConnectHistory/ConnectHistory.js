@@ -25,8 +25,10 @@ class ConnectHistory extends React.Component {
     }
 
     render() {
+        const light = this.props.light;
+        const backgroundColor = light ? "#170B3B" : 'white';
         return (
-            <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <View style={{ flex: 1, backgroundColor }}>
                 <Header backToSetting={() => this.props.navigation.navigate('Home')} delete={() => this.deleteAllDataFromRealm()} />
                 <View style={{ flex: 12 }}>
                     <FlatList
@@ -43,6 +45,7 @@ class ConnectHistory extends React.Component {
 function MapSTP(state) {
     console.log(state.RealmDataRecently)
     return {
+        light: state.changeLightReducer.light,
         RealmDataRecently: state.RealmDataRecently,
     }
 }
