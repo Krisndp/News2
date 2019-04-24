@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Animated, Platform, StatusBar, RefreshControl, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Animated, Platform, StatusBar, RefreshControl, TouchableOpacity, Share } from 'react-native';
 import { connect } from 'react-redux';
 const { width, height } = Dimensions.get('window');
 import Item from './Component/Item';
@@ -47,14 +47,14 @@ class Detail extends React.Component {
                 var alived = true;
                 console.log('2')
                 this.setState({ iconSaved: "https://img.icons8.com/material-outlined/24/000000/bookmark-ribbon.png" })
-                if(this.props.navigation.getParam('toDetail') == 'a'){
+                if (this.props.navigation.getParam('toDetail') == 'a') {
                     console.log('a')
                 } else {
                     deleteNewsSaved(i.id)
-                    .then(querryAllSaved().then(NewsSaved => {
-                        const NewsSort = NewsSaved.sort(function (a, b) { return b.published - a.published });
-                        this.props.getDataSavedFromRealm(NewsSort)
-                    })).catch(e => console.log(e))
+                        .then(querryAllSaved().then(NewsSaved => {
+                            const NewsSort = NewsSaved.sort(function (a, b) { return b.published - a.published });
+                            this.props.getDataSavedFromRealm(NewsSort)
+                        })).catch(e => console.log(e))
                 }
                 break;
             }
@@ -77,6 +77,28 @@ class Detail extends React.Component {
                 .catch(e => alert(e))
         }
     }
+
+    onShare = async (item) => {
+        try {
+            const result = await Share.share({
+                message: item.links,
+                title: item.title,
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
     render() {
         const scrollY = Animated.add(
             this.state.scrollY,
@@ -184,8 +206,8 @@ class Detail extends React.Component {
                             <Text numberOfLines={1} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                         </View>
                         <View style={styles.viewIcon}>
-                            <TouchableOpacity style={styles.ViewOneIcon}>
-                                <Image source={{ uri: "https://img.icons8.com/ios-glyphs/30/000000/share-rounded.png" }} style={[styles.image, { tintColor: tintColorT }]} />
+                            <TouchableOpacity onPress = {() => this.onShare(item)} style={styles.ViewOneIcon}>
+                                <Image source={{ uri: "https://img.icons8.com/material-outlined/24/000000/share-rounded.png" }} style={[styles.image, { tintColor: tintColorT }]} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.insertNewsToRealmSaved(item)} style={styles.ViewOneIcon}>
                                 <Image source={{ uri: this.state.iconSaved }} style={[styles.image, { tintColor: tintColorT }]} />
@@ -269,8 +291,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
     },
     image: {
-        width: 20,
-        height: 20,
+        width: 25,
+        height: 25,
         tintColor: '#A4A4A4',
         marginRight: 10
     },
@@ -288,12 +310,12 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     titleView: {
-        flex: 9,
+        flex: 8,
         justifyContent: 'center',
         alignItems: 'center'
     },
     viewIcon: {
-        flex: 1.5,
+        flex: 2,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -302,6 +324,8 @@ const styles = StyleSheet.create({
     ViewOneIcon: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight:10
     }
 })
