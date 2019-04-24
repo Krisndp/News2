@@ -7,6 +7,7 @@ import changeLightReducer from './changeLightReducer';
 import infoNewsReducer from './infoNewsReducer';
 import categoriesNewsReducer from './categoriesNewsReducer';
 import RealmDataRecently from './RealmDataRecently';
+import RealmDataSaved from './RealmDataSaved';
 
 const reducer = combineReducers({
     state,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
     infoNewsReducer,
     categoriesNewsReducer,
     RealmDataRecently,
+    RealmDataSaved
 })
 
 export default reducer;

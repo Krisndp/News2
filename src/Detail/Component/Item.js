@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Image, ImageBackground, Text, Alert, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import cheerio from 'react-native-cheerio';
-import axios from 'axios';
 import HTMLView from 'react-native-htmlview';
 import { get_info_news } from '../../../redux/action/actionCreator'
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";

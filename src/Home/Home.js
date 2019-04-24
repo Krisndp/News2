@@ -19,7 +19,7 @@ class Home extends React.Component {
                 <View style={styles.component}>
                     <Part1 onPress = {()=>this.props.navigation.navigate('Setting')} />
                     <Part2 ConnectHistory = {()=>this.props.navigation.navigate('ConnectHistory')}/>
-                    <Part3 />
+                    <Part3 goToSaved = {()=> this.props.navigation.navigate('Saved')} />
                     <Part4 />
                 </View>
             </View>

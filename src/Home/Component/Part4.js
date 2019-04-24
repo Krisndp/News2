@@ -16,7 +16,7 @@ class Part4 extends React.Component {
         const tintColorImage = this.props.changeLightReducer.light ? 'white' : 'black';
         return (
             <View style={styles.component3}>
-                <Text style={[styles.text, { marginRight: 3, color:colorText }]}>English</Text>
+                <Text style={[styles.text, { marginRight: 3, color:colorText }]}>Tiếng Việt</Text>
                 <View style={styles.component31}>
                     <Image style={[styles.image,{tintColor:tintColorImage}]} source={{ uri: 'https://img.icons8.com/ios/50/000000/expand-arrow-filled.png' }} />
                 </View>
@@ -61,22 +61,22 @@ class Part4 extends React.Component {
         return (
             <View style={[styles.container,{borderBottomColor}]}>
                 <Item4
-                    title={'Language'}
+                    title={'Ngôn ngữ'}
                     icon={'https://img.icons8.com/ios-glyphs/30/000000/give-way.png'}
                     right={this.right1()}
                 />
                 <Item4
-                    title={'Notifications'}
+                    title={'Thông báo'}
                     icon={'https://img.icons8.com/windows/32/000000/appointment-reminders.png'}
                     right={this.right2()}
                 />
                 <Item4
-                    title={'Darkmode'}
+                    title={'Ban đêm'}
                     icon={'https://img.icons8.com/windows/64/000000/sun.png'}
                     right={this.right3()}
                 />
                 <Item4
-                    title={'Help & Support'}
+                    title={'Trợ giúp'}
                     icon={'https://img.icons8.com/ios/50/000000/help.png'}
                     right={this.right4()}
                 />

@@ -7,6 +7,7 @@ import {
     GET_SUCCES_INFO,
     CHANGE_CHOOSE_TOPIC,
     GET_DATA_FROM_REALM,
+    GET_DATA_FROM_REALM_SAVED
 } from './actionType';
 
 export function change_light() {
@@ -39,4 +40,8 @@ export function change_choose_topic(id) {
 
 export function getDataFromRealm(realmData) {
     return { type: GET_DATA_FROM_REALM, realmData }
+}
+
+export function getDataSavedFromRealm(realmSaved) {
+    return { type: GET_DATA_FROM_REALM_SAVED, realmSaved }
 }

@@ -2,11 +2,12 @@ import { createAppContainer, createStackNavigator, createDrawerNavigator } from 
 import Home from './Home/Home';
 import Detail from './Detail/Detail';
 import Setting from './Setting/Setting';
-import WebViewDetail from './WebView/WebView';
+import WebViewDetail from './Saved/Saved';
 import Drawer from './Drawer/Drawer';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import ConnectHistory from './ConnectHistory/ConnectHistory';
+import Saved from './Saved/Saved';
 const { width } = Dimensions.get('window');
 
 
@@ -26,9 +27,13 @@ const AppNavigator = createStackNavigator({
   ConnectHistory: {
     screen: ConnectHistory,
     navigationOptions: ({ header: null })
+  },
+  Saved: {
+    screen: Saved,
+    navigationOptions: ({ header: null })
   }
 }, {
-    initialRouteName: 'ConnectHistory',
+    initialRouteName: 'Setting',
   });
 
 

@@ -3,10 +3,9 @@ import { View, Text, Alert, Image, StyleSheet, Dimensions, TouchableOpacity, Tou
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { connect } from 'react-redux';
 import Header from './Component/Header';
-import { getDataFromRealm } from '../../redux/action/actionCreator';
-import { querryAll, updateWatchedNews } from '../../realmDB/allShema';
-import { insertRecentlyRead } from '../../realmDB/allShema';
-import { get_all_news, get_info_news } from '../../redux/action/actionCreator';
+import { querryAllSaved } from '../../realmDB/SavedSchema';
+import { querryAll, updateWatchedNews, insertRecentlyRead } from '../../realmDB/allShema';
+import { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm } from '../../redux/action/actionCreator';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
 class Setting extends React.Component {
@@ -16,10 +15,14 @@ class Setting extends React.Component {
         }
     }
     componentWillMount = () => {
-        this.props.get_all_news(this.props.linkNewsTopic)
+        this.props.get_all_news(this.props.linkNewsTopic);
         querryAll().then(allNewsList => {
             const NewsSort = allNewsList.sort(function (a, b) { return b.published - a.published });
             this.props.getDataFromRealm(NewsSort)
+        });
+        querryAllSaved().then(NewsSaved => {
+            const NewsSort = NewsSaved.sort(function (a, b) { return b.published - a.published });
+            this.props.getDataSavedFromRealm(NewsSort)
         })
     }
 
@@ -55,14 +58,14 @@ class Setting extends React.Component {
                 published: new Date(),
             }
             insertRecentlyRead(recentlyRead)
-                .then(e => querryAll().then(allNewsList => {
-                    this.props.getDataFromRealm(allNewsList)
+                .then(querryAll().then(allNewsList => {
+                    const NewsSort = allNewsList.sort(function (a, b) { return b.published - a.published });
+                    this.props.getDataFromRealm(NewsSort)
                 }))
                 .catch(e => alert(e))
-        } else { console.log('haha') }
+        } else { }
     }
     renderItem({ item, index }, parallaxProps) {
-        const borderBottomColor = this.props.light ? 'white' : 'black';
         const colorT = this.props.light ? 'white' : 'black';
         return (
             <View style={styles.carouselView}>
@@ -119,17 +122,17 @@ class Setting extends React.Component {
     }
 }
 function mapSTP(state) {
-    console.log(state.RealmDataRecently)
+    //console.log(state.RealmDataSaved)
     return {
         RealmDataRecently: state.RealmDataRecently,
         linkNewsTopic: state.categoriesNewsReducer.choosedTopic[0].link,
         allNewsReducer: state.allNewsReducer,
         light: state.changeLightReducer.light,
-
+        RealmDataSaved: state.RealmDataSaved
     }
 }
 
-export default connect(mapSTP, { get_all_news, get_info_news, getDataFromRealm })(Setting)
+export default connect(mapSTP, { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm })(Setting)
 
 const styles = StyleSheet.create({
     container: {

@@ -3,17 +3,17 @@ import { View, Text, Image, Dimensions, TouchableOpacity, StyleSheet } from 'rea
 const { width, height } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import Swipeout from 'react-native-swipeout';
-import { deleteNews, querryAll } from '../../realmDB/allShema';
-import { getDataFromRealm } from '../../redux/action/actionCreator';
+import { deleteNewsSaved, querryAllSaved } from '../../realmDB/SavedSchema';
+import { getDataSavedFromRealm } from '../../redux/action/actionCreator';
 
 
 class Item extends React.Component {
 
     deleteThisNews = (Newsid) => {
-        deleteNews(Newsid)
-            .then(querryAll().then(allNewsList => {
+        deleteNewsSaved(Newsid)
+            .then(querryAllSaved().then(allNewsList => {
                 const NewsSort = allNewsList.sort(function (a, b) { return b.published - a.published });
-                this.props.getDataFromRealm(NewsSort)
+                this.props.getDataSavedFromRealm(NewsSort)
             }))
             .catch(e => console.log(e))
     }
@@ -45,11 +45,10 @@ class Item extends React.Component {
 
 function MapSTP(state) {
     return {
-        RealmDataRecently: state.RealmDataRecently,
         light: state.changeLightReducer.light
     }
 }
-export default connect(MapSTP, { getDataFromRealm })(Item)
+export default connect(MapSTP, { getDataSavedFromRealm })(Item)
 
 const styles = StyleSheet.create({
     container: {

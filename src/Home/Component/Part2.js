@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import FlatListItem from './Flatlist';
 const { width, height } = Dimensions.get('window');
@@ -15,11 +15,11 @@ class Part2 extends React.Component {
             <View style={[styles.container,{borderBottomColor}]}>
                 <View style={styles.component1}>
                     <View style={styles.component11}>
-                        <Text onPress = {this.props.ConnectHistory} style={[styles.text,{color:colorText}]}>Categories</Text>
+                        <Text style={[styles.text,{color:colorText}]}>Tin gần đây</Text>
                     </View>
-                    <View style={styles.component12}>
+                    <TouchableOpacity onPress = {this.props.ConnectHistory} style={styles.component12}>
                         <Image style={[styles.image,{tintColor: tintColorImage}]} source={{ uri: showAllImage }} />
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.Component2}>
                     <FlatList

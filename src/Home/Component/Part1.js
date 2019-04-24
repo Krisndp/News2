@@ -15,7 +15,7 @@ class Part1 extends React.Component {
                     <Image source={{ uri: 'https://img.icons8.com/ios/50/000000/less-than.png' }} style={[styles.icon,{tintColor:tintColorImage}]} />
                 </TouchableOpacity>
                 <View style={styles.Prefer}>
-                    <Text style={[styles.text, { color }]}>Preferences</Text>
+                    <Text style={[styles.text, { color }]}>CÀI ĐẶT</Text>
                 </View>
             </View>
         )
