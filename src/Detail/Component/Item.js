@@ -41,7 +41,7 @@ class Item extends React.Component {
                     <Text onPress={this.props.onPress} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                 </View>
                 <View style={styles.view5} activeOpacity={1}>
-                    <HTMLView value={this.props.info} stylesheet={{ color: 'red' }} textComponentProps={{ color: 'red' }} />
+                    <HTMLView value={this.props.info} stylesheet= {this.props.light ? htmlstyles : null } textComponentProps={{ color: 'red' }} />
                 </View>
             </View>
         )
@@ -56,6 +56,11 @@ function mapSTP(state) {
 
 export default connect(mapSTP, { get_info_news })(Item)
 
+const htmlstyles = StyleSheet.create({
+    p:{
+        color:'white'
+    }
+})
 const styles = StyleSheet.create({
     image: {
         width: width / 14,
