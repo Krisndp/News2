@@ -4,16 +4,9 @@ import { connect } from 'react-redux';
 import HTMLView from 'react-native-htmlview';
 import { get_info_news } from '../../../redux/action/actionCreator'
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
-const { width, height } = Dimensions.get('window');
-
+import  styles  from '../styles';
 
 class Item extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            uri: ''
-        }
-    }
 
     componentWillMount = () => {
         this.props.get_info_news(this.props.item.links, this.props.light)
@@ -21,17 +14,15 @@ class Item extends React.Component {
     render() {
         const item = this.props.item;
         const colorT = this.props.light ? 'white' : 'black';
-        const backgroundColor = this.props.light ? "#170B3B" : 'white';
-        //alert(JSON.stringify(item.links))
-
+        const cm = item.cm == null ? "VietNamNet" : item.cm;
         return (
-            <View style={{ padding: 40, marginTop: 0.6 * height, paddingTop: 10 }}>
+            <View style={styles.container}>
                 <View style={styles.viewTotal}>
                     <View style={styles.view1}>
                         <Image source={{ uri: urlTriagle }} style={[styles.icon]} />
                     </View>
                     <View style={styles.view2}>
-                        <Text style={{ color: 'blue' }}>{item.cm}</Text>
+                        <Text style={{ color: 'blue' }}>{cm}</Text>
                     </View>
                     <View style={styles.view3}>
                         <Text style={{ color: '#848484' }}>{item.publishe}</Text>
@@ -41,7 +32,10 @@ class Item extends React.Component {
                     <Text onPress={this.props.onPress} style={[styles.title, { color: colorT }]}>{item.title}</Text>
                 </View>
                 <View style={styles.view5} activeOpacity={1}>
-                    <HTMLView value={this.props.info} stylesheet= {this.props.light ? htmlstyles : null } textComponentProps={{ color: 'red' }} />
+                    <HTMLView
+                        value={this.props.info}
+                        stylesheet={this.props.light ? htmlstyles : null}
+                        textComponentProps={{ color: 'red' }} />
                 </View>
             </View>
         )
@@ -57,53 +51,7 @@ function mapSTP(state) {
 export default connect(mapSTP, { get_info_news })(Item)
 
 const htmlstyles = StyleSheet.create({
-    p:{
-        color:'white'
+    p: {
+        color: 'white'
     }
-})
-const styles = StyleSheet.create({
-    image: {
-        width: width / 14,
-        height: width / 14,
-        tintColor: 'white',
-        marginRight: 20
-    },
-    viewTotal: {
-        flexDirection: 'row',
-        marginTop: 10,
-        flex: 1
-    },
-    icon: {
-        width: 20,
-        height: 20
-    },
-    view1: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    view2: {
-        flex: 3,
-        justifyContent: 'center'
-    },
-    view3: {
-        flex: 6,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    view4: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    view5: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    text: {
-        fontSize: 17,
-    },
-    title: {
-        fontSize: 25,
-        fontWeight: 'bold'
-    },
 })

@@ -6,6 +6,7 @@ import { search } from '../../redux/action/actionCreator';
 import Item from './Item';
 import { updateWatchedNews, querryAll, insertRecentlyRead } from '../../realmDB/allShema';
 import { getDataSavedFromRealm, getDataFromRealm } from '../../redux/action/actionCreator';
+import styles from './style/stylesSearch';
 
 
 class Search extends React.Component {
@@ -14,6 +15,9 @@ class Search extends React.Component {
         this.state = {
             text: ''
         }
+    }
+    componentWillMount = () => {
+        this.Search()
     }
 
     Search = async () => {
@@ -75,25 +79,29 @@ class Search extends React.Component {
         const borderColorT = light ? 'white' : 'black';
         const placeholderColor = light ? 'white' : 'black';
         return (
-            <View style={{ flex: 1, backgroundColor }}>
-                <View style={{ width, height: width / 7, flexDirection: 'row' }}>
-                    <View style={{ flex: 6, borderColor: borderColorT, borderRadius: 20, borderWidth: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', margin: 10 }}>
+            <View style={[styles.container,{backgroundColor}]}>
+                <View style={styles.viewHeader}>
+                    <View style={[styles.viewSearch, { borderColor: borderColorT }]}>
                         <TextInput
                             value={this.state.text}
                             placeholder={`Tìm kiếm trong ${this.props.nameTopic}`}
                             onChangeText={(text) => this.setState({ text })}
-                            placeholderTextColor = {placeholderColor}
-                            style={{ paddingLeft: 20, paddingTop: -5, justifyContent: 'center', alignItems: 'center', color: colorText, fontSize: width / 25, marginHorizontal: 10, flex: 7 }}
+                            placeholderTextColor={placeholderColor}
+                            style={[styles.textInput, { color: colorText }]}
                         />
                         <TouchableOpacity onPress={() => { this.Search(), Keyboard.dismiss() }} style={{ flex: 1 }}>
-                            <Image source={{ uri: "https://img.icons8.com/material-rounded/96/000000/search.png" }} style={{ width: 25, height: 25, tintColor: tintIconColor }} />
+                            <Image
+                                source={{ uri: "https://img.icons8.com/material-rounded/96/000000/search.png" }}
+                                style={[styles.image, { tintColor: tintIconColor }]} />
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Setting')} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'blue', fontSize: width / 22 }}>Hủy</Text>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Setting')}
+                        style={styles.viewHuy}>
+                        <Text style={styles.text}>Hủy</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ width, height: height - width / 7, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={styles.viewFlatList}>
                     <FlatList
                         data={this.props.SearchReducer}
                         renderItem={({ item }) => <Item item={item} goToDetail={() => { this.props.navigation.navigate('Detail', { item }), this.addToRealm(item) }} />}

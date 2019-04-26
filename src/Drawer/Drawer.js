@@ -25,6 +25,7 @@ class Drawer extends React.Component {
         //console.log(AllFavoriteNews)
         this.props.get_all_news(AllFavoriteNews)
     }
+
     onPress = async (id) => {
         await this.props.change_choose_topic(id);
         this.props.navigation.toggleDrawer();
@@ -34,6 +35,7 @@ class Drawer extends React.Component {
             this.props.get_all_news([this.props.categoriesNewsReducer.choosedTopic[0].link]);
         }
     }
+    
     render() {
         const allTopic = this.props.categoriesNewsReducer.allTopic;
         const backgroundColor = this.props.light ? '#170B3B' : 'white';

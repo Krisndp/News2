@@ -10,7 +10,7 @@ export const RecentlyReadSchema = {
         links: 'string',
         subtitle: 'string',
         illustration: 'string',
-        published: 'date'
+        published: 'date',
     }
 }
 

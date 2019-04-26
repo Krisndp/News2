@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Swipeout from 'react-native-swipeout';
 import { deleteNewsSaved, querryAllSaved } from '../../realmDB/SavedSchema';
 import { getDataSavedFromRealm } from '../../redux/action/actionCreator';
+import styles from './styles/stylesItem';
 
 
 class Item extends React.Component {
@@ -50,47 +51,3 @@ function MapSTP(state) {
 }
 export default connect(MapSTP, { getDataSavedFromRealm })(Item)
 
-const styles = StyleSheet.create({
-    container: {
-        marginBottom: 10,
-        width,
-        height: height / 4.2,
-        paddingHorizontal: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    ViewTitle: {
-        flex: 1,
-        marginBottom: 5
-    },
-    TextTitle: {
-        color: 'black',
-        fontSize: width / 22,
-        fontWeight: 'bold'
-    },
-    VNtext: {
-        fontSize: width / 30,
-        color: '#848484' 
-    },
-    ViewDes: {
-        flex: 2,
-        flexDirection: 'row'
-    },
-    image: {
-        width: width * 0.2,
-        height: width * 0.2
-    },
-    ViewImage: {
-        flex: 2,
-        justifyContent: 'center'
-    },
-    ViewDescription: {
-        flex: 7,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    TextDes: {
-        color: 'black',
-        fontSize: width / 26
-    }
-})

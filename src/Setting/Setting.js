@@ -7,14 +7,11 @@ import { querryAllSaved } from '../../realmDB/SavedSchema';
 import { querryAll, updateWatchedNews, insertRecentlyRead } from '../../realmDB/allShema';
 import { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm, getDataFavoriteFromRealm } from '../../redux/action/actionCreator';
 import { querryAllFavorite} from '../../realmDB/FavoriteNewsSchema';
+import styles from './styles/stylesSetting';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
 class Setting extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
+
     componentWillMount = async () => {
         await querryAllFavorite()
             .then(NewsFavorite => this.props.getDataFavoriteFromRealm(NewsFavorite))
@@ -120,7 +117,7 @@ class Setting extends React.Component {
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.props.allNewsReducer.slice(0,10)}
+                        data={this.props.allNewsReducer}
                         renderItem={(item) => this.renderItem(item)}
                         sliderWidth={width}
                         itemWidth={0.8 * width}
@@ -148,66 +145,3 @@ function mapSTP(state) {
 
 export default connect(mapSTP, { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm, getDataFavoriteFromRealm })(Setting)
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 0,
-        //       backgroundColor:'#0A0A2A'
-    },
-    main: {
-        flex: 11
-    },
-    carouselView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    containerStyle: {
-        width: 0.8 * width,
-        height: 0.6 * height,
-        marginRight: 0,
-        borderRadius: 20,
-        flex: 15
-    },
-    title: {
-        fontSize: 25,
-        fontWeight: 'bold'
-    },
-    viewTotal: {
-        flexDirection: 'row',
-        marginTop: 10,
-        flex: 1
-    },
-    icon: {
-        width: 20,
-        height: 20
-    },
-    view1: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    view2: {
-        flex: 4,
-        justifyContent: 'center'
-    },
-    view3: {
-        flex: 5,
-        justifyContent: 'center',
-        alignItems: 'flex-end'
-    },
-    view4: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 2
-    },
-    view5: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-        flex: 4
-    },
-    text: {
-        fontSize: 17,
-        color: 'gray'
-    }
-})
