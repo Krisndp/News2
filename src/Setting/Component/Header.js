@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 const urlSetting = "https://img.icons8.com/ios/50/000000/settings.png";
 const urlMenu = "https://img.icons8.com/ios/50/000000/menu-filled.png";
 const urlSearch = "https://img.icons8.com/material-rounded/96/000000/search.png";
+import styles from '../styles/stylesHeader'; 
+
 class Header extends React.Component {
 
     componentWillMount = () => {
@@ -46,31 +48,3 @@ function mapSTP(state) {
     }
 }
 export default connect(mapSTP)(Header)
-const styles = StyleSheet.create({
-    header: {
-        flex: 1,
-        flexDirection: 'row',
-        marginHorizontal: 10,
-        justifyContent:'center',
-        alignItems:'center'
-    },
-    view1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    view2: {
-        flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    image: {
-        width: 20,
-        height: 20,
-        tintColor: 'black'
-    },
-    text: {
-        color: 'black',
-        fontSize: 20
-    }
-})

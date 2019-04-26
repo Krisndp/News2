@@ -9,8 +9,12 @@ import ConnectHistory from './ConnectHistory/ConnectHistory';
 import Saved from './Saved/Saved';
 import Favorite from './Favorite/Favorite';
 import Search from './Search/Search';
+import { connect } from 'react-redux';
 const { width } = Dimensions.get('window');
 
+initialRoute = () => {
+  return "Setting"
+}
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -42,7 +46,7 @@ const AppNavigator = createStackNavigator({
     navigationOptions: ({ header: null })
   }
 }, {
-    initialRouteName: 'Setting',
+    initialRouteName: this.initialRoute(),
   });
 
 
@@ -55,4 +59,10 @@ const Drawers = createDrawerNavigator({
     drawerPosition: 'left',
     contentComponent: props => <Drawer {...props} />
   });
-export default createAppContainer(Drawers);
+
+const App = createAppContainer(Drawers);
+
+function mapSTP(state) {
+  return { RealmDataFavorite: state.RealmDataFavorite }
+}
+export default connect(mapSTP)(App)
