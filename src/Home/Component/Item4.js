@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
-const { width, height } = Dimensions.get('window')
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 class Part4 extends React.Component {
@@ -31,34 +30,23 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        //alignItems:'center',
         flexDirection: 'row',
     },
     component1: {
         flex: 1,
         justifyContent: 'center',
+        alignItems:'center'
     },
     image: {
-        width: 15,
-        height: 15,
+        width: 30,
+        height: 30,
         tintColor:'green'
     },
     component2: {
-        flex: 6,
+        flex: 3,
         justifyContent: 'center',
     },
-    component3: {
-        flex: 3,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
     text: {
-        fontSize: 15
+        fontSize: 18
     },
-    component31:{
-        justifyContent:'center',
-        alignItems:'center'
-    }
-
 })

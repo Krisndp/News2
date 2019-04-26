@@ -79,7 +79,6 @@ class Saved extends React.Component {
 }
 
 function MapSTP(state) {
-    console.log(state.RealmDataSaved)
     return {
         RealmDataRecently: state.RealmDataRecently,
         RealmDataSaved: state.RealmDataSaved,

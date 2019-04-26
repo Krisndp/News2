@@ -3,17 +3,12 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'rea
 const { width, height } = Dimensions.get('window');
 
 class FlatlistItem extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
+    
     render() {
         const item = this.props.item;
         const backgroundColor = this.props.backgroundColor;
         const color = this.props.color;
         const tintColor = this.props.tintColor;
-        //alert(JSON.stringify(item));
         return (
             <View style={[styles.container, { backgroundColor }]}>
                 <TouchableOpacity activeOpacity={1} style={styles.touchableOpacity}>
@@ -23,7 +18,6 @@ class FlatlistItem extends React.Component {
                     <View style={styles.view1}>
                         <Text style={[styles.text, { color }]}>{item.name}</Text>
                     </View>
-
                 </TouchableOpacity>
             </View>
         )

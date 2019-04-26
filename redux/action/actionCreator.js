@@ -8,7 +8,8 @@ import {
     CHANGE_CHOOSE_TOPIC,
     GET_DATA_FROM_REALM,
     GET_DATA_FROM_REALM_SAVED,
-    GET_DATA_FROM_REALM_FAVORITE
+    GET_DATA_FROM_REALM_FAVORITE,
+    SEARCH
 } from './actionType';
 
 export function change_light() {
@@ -49,4 +50,8 @@ export function getDataSavedFromRealm(realmSaved) {
 
 export function getDataFavoriteFromRealm(realmFavorite) {
     return { type: GET_DATA_FROM_REALM_FAVORITE, realmFavorite }
+}
+
+export function search(ItemSearch) {
+    return { type: SEARCH, ItemSearch }
 }

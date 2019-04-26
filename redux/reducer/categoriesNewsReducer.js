@@ -2,11 +2,18 @@ import { CHANGE_CHOOSE_TOPIC } from '../action/actionType';
 const defaultState = {
     allTopic: [
         {
+            id: 0,
+            nameTopic: "Tất cả tin",
+            color: "red",
+            link: "",
+            onClick: true
+        },
+        {
             id: 1,
             nameTopic: "Tin nổi bật",
             color: "#01DF01",
             link: "http://vietnamnet.vn/rss/tin-noi-bat.rss",
-            onClick: true
+            onClick: false
         },
         {
             id: 2,

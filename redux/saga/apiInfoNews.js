@@ -22,8 +22,6 @@ function* getInfoNewsFromAPI(urlInfoNews) {
             $('.italic').remove();
             $('.bold').remove();
             $('.subtitle').remove();
-            $("h1").css("background-color", "blue");
-            //alert( $('.ArticleDate  right').text());
             return $(".ArticleDetail").html();
         })
         .catch(err => console.log('err'))

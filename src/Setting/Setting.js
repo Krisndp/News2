@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import Header from './Component/Header';
 import { querryAllSaved } from '../../realmDB/SavedSchema';
 import { querryAll, updateWatchedNews, insertRecentlyRead } from '../../realmDB/allShema';
-import { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm } from '../../redux/action/actionCreator';
+import { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm, getDataFavoriteFromRealm } from '../../redux/action/actionCreator';
+import { querryAllFavorite} from '../../realmDB/FavoriteNewsSchema';
 const { width, height } = Dimensions.get('window');
 const urlTriagle = "https://img.icons8.com/cotton/64/000000/warning-triangle.png";
 class Setting extends React.Component {
@@ -14,8 +15,11 @@ class Setting extends React.Component {
         this.state = {
         }
     }
-    componentWillMount = () => {
-        this.props.get_all_news(this.props.linkNewsTopic);
+    componentWillMount = async () => {
+        await querryAllFavorite()
+            .then(NewsFavorite => this.props.getDataFavoriteFromRealm(NewsFavorite))
+            .catch(e => console.log(e));
+        this.getAllFavoriteNews();
         querryAll().then(allNewsList => {
             const NewsSort = allNewsList.sort(function (a, b) { return b.published - a.published });
             this.props.getDataFromRealm(NewsSort)
@@ -24,6 +28,13 @@ class Setting extends React.Component {
             const NewsSort = NewsSaved.sort(function (a, b) { return b.published - a.published });
             this.props.getDataSavedFromRealm(NewsSort)
         })
+    }
+
+    getAllFavoriteNews = () => {
+        const RealmDataFavorite = this.props.RealmDataFavorite;
+        const AllFavoriteNews = RealmDataFavorite.map(e => { return e.links });
+        //console.log(AllFavoriteNews)
+        this.props.get_all_news(AllFavoriteNews)
     }
 
     CarouselTouch = (item) => {
@@ -65,6 +76,7 @@ class Setting extends React.Component {
                 .catch(e => alert(e))
         } else { }
     }
+
     renderItem({ item, index }, parallaxProps) {
         const colorT = this.props.light ? 'white' : 'black';
         return (
@@ -80,7 +92,7 @@ class Setting extends React.Component {
                             <Image source={{ uri: urlTriagle }} style={styles.icon} />
                         </View>
                         <View style={styles.view2}>
-                            <Text style={{ color: '#848484' }}>VietNamNet</Text>
+                            <Text style={{ color: 'blue' }}>{item.cm}</Text>
                         </View>
                         <View style={styles.view3}>
                             <Text style={{ color: "#848484" }}>{item.publishe}</Text>
@@ -99,15 +111,16 @@ class Setting extends React.Component {
 
     render() {
         const goHome = () => this.props.navigation.navigate('Home');
+        const search = () => this.props.navigation.navigate('Search');
         const backgroundColor = this.props.light ? "#170B3B" : 'white';
         const toggleDrawer = () => this.props.navigation.toggleDrawer();
         return (
             <View style={[styles.container, { backgroundColor }]}>
-                <Header setting={goHome} drawer={toggleDrawer} />
+                <Header setting={goHome} drawer={toggleDrawer} search = {search}/>
                 <View style={styles.main}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.props.allNewsReducer}
+                        data={this.props.allNewsReducer.slice(0,10)}
                         renderItem={(item) => this.renderItem(item)}
                         sliderWidth={width}
                         itemWidth={0.8 * width}
@@ -122,17 +135,18 @@ class Setting extends React.Component {
     }
 }
 function mapSTP(state) {
-    //console.log(state.RealmDataSaved)
+    //console.log(state.allNewsReducer.sort(function (a, b) { return b.publishe - a.publishe }));
     return {
         RealmDataRecently: state.RealmDataRecently,
         linkNewsTopic: state.categoriesNewsReducer.choosedTopic[0].link,
-        allNewsReducer: state.allNewsReducer,
+        allNewsReducer: state.allNewsReducer.sort(function(a, b){return 0.5 - Math.random()}),
         light: state.changeLightReducer.light,
-        RealmDataSaved: state.RealmDataSaved
+        RealmDataSaved: state.RealmDataSaved,
+        RealmDataFavorite: state.RealmDataFavorite,
     }
 }
 
-export default connect(mapSTP, { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm })(Setting)
+export default connect(mapSTP, { get_all_news, get_info_news, getDataFromRealm, getDataSavedFromRealm, getDataFavoriteFromRealm })(Setting)
 
 const styles = StyleSheet.create({
     container: {
@@ -173,13 +187,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     view2: {
-        flex: 3,
+        flex: 4,
         justifyContent: 'center'
     },
     view3: {
-        flex: 6,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
+        flex: 5,
+        justifyContent: 'center',
+        alignItems: 'flex-end'
     },
     view4: {
         justifyContent: 'center',

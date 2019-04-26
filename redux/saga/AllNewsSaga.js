@@ -4,7 +4,16 @@ import { API } from './API';
 
 function* getNews(linkNewsTopic) {
     try {
-        const receivedNews = yield API.getNewsFromAPI(linkNewsTopic.linkNewsTopic);
+        //console.log(linkNewsTopic)
+        var receivedNews = []
+        for (var i of linkNewsTopic.linkNewsTopic) {
+
+            const arr = yield API.getNewsFromAPI(i);
+            for (var j of arr) {
+                receivedNews.push(j)
+            }
+        }
+        //console.log(receivedNews)
         //yield console.log(receivedNews)
         yield put({ type: GET_SUCCES, receivedNews })
     } catch {
@@ -12,6 +21,6 @@ function* getNews(linkNewsTopic) {
     }
 }
 
-export function* watchGetNews(){
+export function* watchGetNews() {
     yield takeLatest(GET_ALL_NEWS, getNews)
 }

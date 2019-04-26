@@ -14,9 +14,13 @@ function* getNewsFromAPI(linkNewsTopic) {
         .then(response => {
             let data = rssParser.parse(response.data);
             //console.log(data._55);
-            return data._55.items;
+            return data._55;
         })
-        .then(data => {
+        .then(res => {
+            console.log(res)
+            let data = res.items;
+            var cm =res.title.substring(12,50);
+            //console.log(cm);
             var arr = [];
             for (i of data) {
                 let description = i.description;
@@ -39,7 +43,7 @@ function* getNewsFromAPI(linkNewsTopic) {
                 var lastSrc = description.lastIndexOf('w=220');
                 var illustration = description.substring(fisrtSrc, lastSrc);
 
-                var obj = { title, links, subtitle, illustration, publishe };
+                var obj = { title, links, subtitle, illustration, publishe, cm };
                 arr.push(obj);
             }
             console.log(arr)

@@ -1,25 +1,38 @@
 import React from 'react';
 import { View, Dimensions, ScrollView, Text, FlatList } from 'react-native';
-import axios from 'axios';
-import cheerio from 'react-native-cheerio';
+import { querryAllFavorite} from '../../realmDB/FavoriteNewsSchema';
 import { connect } from 'react-redux';
 import FlatlistItem from './component/FlatlistItem';
-import { change_choose_topic, get_all_news } from '../../redux/action/actionCreator';
+import { change_choose_topic, get_all_news, getDataFavoriteFromRealm } from '../../redux/action/actionCreator';
 const { width, height } = Dimensions.get('window');
 
 class Drawer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
-
         }
+    }
+    componentWillMount = async () => {
+        await querryAllFavorite()
+            .then(NewsFavorite => this.props.getDataFavoriteFromRealm(NewsFavorite))
+            .catch(e => console.log(e));
+        this.getAllFavoriteNews();
+    }
+
+    getAllFavoriteNews = () => {
+        const RealmDataFavorite = this.props.RealmDataFavorite;
+        const AllFavoriteNews = RealmDataFavorite.map(e => { return e.links });
+        //console.log(AllFavoriteNews)
+        this.props.get_all_news(AllFavoriteNews)
     }
     onPress = async (id) => {
         await this.props.change_choose_topic(id);
         this.props.navigation.toggleDrawer();
-        this.props.get_all_news(this.props.categoriesNewsReducer.choosedTopic[0].link);
-        //this.props.navigation.push('Setting')
+        if(id == 0){
+            this.getAllFavoriteNews()
+        } else {
+            this.props.get_all_news([this.props.categoriesNewsReducer.choosedTopic[0].link]);
+        }
     }
     render() {
         const allTopic = this.props.categoriesNewsReducer.allTopic;
@@ -38,7 +51,8 @@ class Drawer extends React.Component {
 function mapSTP(state) {
     return {
         categoriesNewsReducer: state.categoriesNewsReducer,
-        light: state.changeLightReducer.light
+        light: state.changeLightReducer.light,
+        RealmDataFavorite: state.RealmDataFavorite,
     }
 }
-export default connect(mapSTP, { change_choose_topic, get_all_news })(Drawer)
+export default connect(mapSTP, { change_choose_topic, get_all_news, getDataFavoriteFromRealm })(Drawer)

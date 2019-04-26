@@ -2,14 +2,13 @@ import { createAppContainer, createStackNavigator, createDrawerNavigator } from 
 import Home from './Home/Home';
 import Detail from './Detail/Detail';
 import Setting from './Setting/Setting';
-import WebViewDetail from './Saved/Saved';
 import Drawer from './Drawer/Drawer';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import ConnectHistory from './ConnectHistory/ConnectHistory';
 import Saved from './Saved/Saved';
 import Favorite from './Favorite/Favorite';
-import AllFavorite from './AllFavorite/AllFavorite';
+import Search from './Search/Search';
 const { width } = Dimensions.get('window');
 
 
@@ -38,12 +37,12 @@ const AppNavigator = createStackNavigator({
     screen: Favorite,
     navigationOptions: ({ header: null })
   },
-  AllFavorite: {
-    screen: AllFavorite,
+  Search: {
+    screen: Search,
     navigationOptions: ({ header: null })
   }
 }, {
-    initialRouteName: 'AllFavorite',
+    initialRouteName: 'Setting',
   });
 
 

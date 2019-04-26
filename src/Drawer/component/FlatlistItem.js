@@ -8,7 +8,8 @@ class FlatlistItem extends React.Component {
     choosed = () => {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={{ width: 20, height: 20 }} source={{ uri: "https://img.icons8.com/ios/50/000000/checkmark.png" }} />
+                <Image 
+                style={{ width: 20, height: 20 }} source={{ uri: "https://img.icons8.com/ios/50/000000/checkmark.png" }} />
             </View>
         )
     }

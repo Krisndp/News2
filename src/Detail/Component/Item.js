@@ -31,7 +31,7 @@ class Item extends React.Component {
                         <Image source={{ uri: urlTriagle }} style={[styles.icon]} />
                     </View>
                     <View style={styles.view2}>
-                        <Text style={{ color: '#848484' }}>VietNamNet</Text>
+                        <Text style={{ color: 'blue' }}>{item.cm}</Text>
                     </View>
                     <View style={styles.view3}>
                         <Text style={{ color: '#848484' }}>{item.publishe}</Text>

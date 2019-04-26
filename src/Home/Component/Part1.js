@@ -12,7 +12,9 @@ class Part1 extends React.Component {
         return (
             <View style={[styles.container, { borderBottomColor }]}>
                 <TouchableOpacity onPress={this.props.onPress} style={styles.backToHome}>
-                    <Image source={{ uri: 'https://img.icons8.com/ios/50/000000/less-than.png' }} style={[styles.icon,{tintColor:tintColorImage}]} />
+                    <Image
+                        source={{ uri: 'https://img.icons8.com/ios/50/000000/less-than.png' }}
+                        style={[styles.icon, { tintColor: tintColorImage }]} />
                 </TouchableOpacity>
                 <View style={styles.Prefer}>
                     <Text style={[styles.text, { color }]}>CÀI ĐẶT</Text>
@@ -29,11 +31,12 @@ export default connect(mapSTP)(Part1);
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.7,
+        height: 0.1 * width,
         borderBottomWidth: 1,
-        justifyContent: 'center',
-        //alignItems:'center',
-        marginTop: 5,
+        //justifyContent: 'center',
+
+        alignItems: 'center',
+        marginBottom: 10,
         flexDirection: 'row'
     },
     text: {

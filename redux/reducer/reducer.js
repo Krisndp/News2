@@ -9,6 +9,7 @@ import categoriesNewsReducer from './categoriesNewsReducer';
 import RealmDataRecently from './RealmDataRecently';
 import RealmDataSaved from './RealmDataSaved';
 import RealmDataFavorite from './RealmDataFavorite';
+import SearchReducer from './SearchReducer';
 
 const reducer = combineReducers({
     state,
@@ -20,7 +21,8 @@ const reducer = combineReducers({
     categoriesNewsReducer,
     RealmDataRecently,
     RealmDataSaved,
-    RealmDataFavorite
+    RealmDataFavorite,
+    SearchReducer
 })
 
 export default reducer;
